@@ -1,3 +1,29 @@
-<form action="<?= $this->getActionUrl() ?>" method="post" enctype="multipart/form-data">
-    <?php echo $block->getBlockHtml('formkey')?>
-</form>
+<?php
+  $config = $this->getConfig();
+
+  if (!$config['key'] || !$config['secret'] || !$config['domain']):
+  ?>
+  <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
+      <?php echo $block->getBlockHtml('formkey')?>
+      <p>
+        <label for="key">Key:</label>
+        <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
+      </p>
+      <p>
+        <label for="secret">Secret:</label>
+        <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
+      </p>
+      <p>
+        <label for="domain">Domain:</label>
+        <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
+      </p>
+
+      <input type="submit" value="Save" />
+  </form>
+  <?php
+  else:
+  ?>
+
+  <?php
+  endif
+?>

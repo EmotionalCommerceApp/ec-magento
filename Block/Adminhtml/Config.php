@@ -28,14 +28,23 @@ class Config extends \Magento\Backend\Block\Template
      */
     public $coreSessions;
 
+    /**
+     * ConfigFactory
+     *
+     * @var \Ec\Qr\Model\ConfigFactory
+     */
+    protected $configFactory;
+
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Data\Form\FormKey $formKey,
-        \Magento\Framework\Session\SessionManagerInterface $coreSession
+        \Magento\Framework\Session\SessionManagerInterface $coreSession,
+        \Ec\Qr\Model\ConfigFactory $configFactory
     ) {
         $this->context = $context;
         $this->formKey = $formKey;
         $this->coreSession = $coreSession;
+        $this->configFactory = $configFactory;
 
         parent::__construct($context);
     }
@@ -49,8 +58,21 @@ class Config extends \Magento\Backend\Block\Template
     {
         $url = $this->context->getUrlBuilder();
 
-        return $url->getUrl('ecqr/configpost');
+        return $url->getUrl('ecqr/config/save');
     }
+
+    /**
+     * Returns the form action url
+     *
+     * @return array
+     */
+    public function getInstallActionUrl()
+    {
+        $url = $this->context->getUrlBuilder();
+
+        return $url->getUrl('ecqr/config/install');
+    }
+
 
     /**
      * Generates and returns a form key
@@ -61,4 +83,25 @@ class Config extends \Magento\Backend\Block\Template
     {
          return $this->formKey->getFormKey();
     }
+
+    public function getConfig()
+    {
+          $configFactory = $this->configFactory->create();
+          $collection = $configFactory->getCollection();
+
+          $configData = [
+              'key' => false,
+              'secret' => false,
+              'domain' => false,
+              'campaign' => false,
+              'template' => false,
+          ];
+
+          foreach ($collection as $config) {
+              $configData[$config->getName()] = $config->getValue();
+          }
+
+          return $configData;
+    }
+
 }
