@@ -28,18 +28,11 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 'Enitity ID'
             )
             ->addColumn(
-                'configuration',
-                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                null,
-                ['nullable => false'],
-                'Category Id'
-            )
-            ->addColumn(
                 'value',
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                null,
+                255,
                 [],
-                'Type'
+                'Value'
             )
             ->addColumn(
                 'name',
