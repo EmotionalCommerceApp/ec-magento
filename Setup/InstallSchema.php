@@ -53,7 +53,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 null,
                 ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
                 'Updated At')
-            ->setComment('Addblooom Category');
+            ->setComment('EC QR');
             $installer->getConnection()->createTable($table);
         }
         $installer->endSetup();
