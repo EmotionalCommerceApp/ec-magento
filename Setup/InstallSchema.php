@@ -28,18 +28,11 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 'Enitity ID'
             )
             ->addColumn(
-                'configuration',
-                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                null,
-                ['nullable => false'],
-                'Category Id'
-            )
-            ->addColumn(
                 'value',
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-                null,
+                255,
                 [],
-                'Type'
+                'Value'
             )
             ->addColumn(
                 'name',
@@ -60,7 +53,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 null,
                 ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
                 'Updated At')
-            ->setComment('Addblooom Category');
+            ->setComment('EC QR');
             $installer->getConnection()->createTable($table);
         }
         $installer->endSetup();

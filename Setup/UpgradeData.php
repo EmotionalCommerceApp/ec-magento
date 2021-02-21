@@ -2,6 +2,7 @@
 
 namespace Ec\Qr\Setup;
 
+use Magento\Cms\Model\PageFactory;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Catalog\Setup\CategorySetupFactory;
 use Magento\Framework\Setup\UpgradeDataInterface;
@@ -44,23 +45,31 @@ class UpgradeData implements UpgradeDataInterface
     private $state;
 
     /**
+     * @var PageFactory
+     */
+    protected $pageFactory;
+
+    /**
      * Constructor
      *
      * @param CategorySetupFactory $categorySetupFactory
      * @param EavSetupFactory $eavSetupFactory
      * @param Product $product
      * @param State $state
+     * @param PageFactory $pageFactory
      */
     public function __construct(
         CategorySetupFactory $categorySetupFactory,
         EavSetupFactory $eavSetupFactory,
         Product $product,
-        State $state
+        State $state,
+        PageFactory $pageFactory
     ) {
         $this->categorySetupFactory = $categorySetupFactory;
         $this->eavSetupFactory = $eavSetupFactory;
         $this->product = $product;
         $this->state = $state;
+        $this->pageFactory = $pageFactory;
     }
 
     /**
@@ -94,6 +103,16 @@ class UpgradeData implements UpgradeDataInterface
             );
 
             $this->product->save();
+        }
+        if (version_compare($context->getVersion(), '1.0.1') < 0) {
+            $page = $this->pageFactory->create();
+            $page->setTitle('EC QR Template')
+                ->setIdentifier('ec-qr')
+                ->setIsActive(false)
+                ->setPageLayout('1column')
+                ->setStores([0])
+                ->setContent('Welcome to EC QR')
+                ->save();
         }
     }
 }
