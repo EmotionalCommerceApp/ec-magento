@@ -35,16 +35,32 @@ class Config extends \Magento\Backend\Block\Template
      */
     protected $configFactory;
 
+    /**
+     * apiHelper
+     *
+     * @var \Ec\Qr\Helper\Api
+     */
+    protected $apiHelper;
+
+    /**
+     * @var \Magento\Cms\Model\PageFactory
+     */
+    protected $pageFactory;
+
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Framework\Session\SessionManagerInterface $coreSession,
-        \Ec\Qr\Model\ConfigFactory $configFactory
+        \Ec\Qr\Model\ConfigFactory $configFactory,
+        \Ec\Qr\Helper\Api $apiHelper,
+        \Magento\Cms\Model\PageFactory $pageFactory
     ) {
         $this->context = $context;
         $this->formKey = $formKey;
         $this->coreSession = $coreSession;
         $this->configFactory = $configFactory;
+        $this->apiHelper = $apiHelper;
+        $this->pageFactory = $pageFactory;
 
         parent::__construct($context);
     }
@@ -95,6 +111,7 @@ class Config extends \Magento\Backend\Block\Template
               'domain' => false,
               'campaign' => false,
               'template' => false,
+              'price' => false,
           ];
 
           foreach ($collection as $config) {
@@ -102,6 +119,23 @@ class Config extends \Magento\Backend\Block\Template
           }
 
           return $configData;
+    }
+
+    public function getCampaigns($key, $secret, $domain)
+    {
+        $campaigns = $this->apiHelper->getCampaigns($key, $secret, $domain);
+
+        if (!$campaigns['success']) {
+            return false;
+        }
+
+        return $campaigns;
+    }
+
+    public function getPages()
+    {
+        $page = $this->pageFactory->create();
+        return $page->getCollection();
     }
 
 }
