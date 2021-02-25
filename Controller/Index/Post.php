@@ -27,6 +27,8 @@ class Post extends \Magento\Framework\App\Action\Action
      */
     protected $productRepository;
 
+    protected $checkoutSession;
+
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\ObjectManagerInterface $objectManager,
@@ -34,7 +36,8 @@ class Post extends \Magento\Framework\App\Action\Action
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
         \Ec\Qr\Helper\Api $apiHelper,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Checkout\Model\Cart $cart
+        \Magento\Checkout\Model\Cart $cart,
+        \Magento\Checkout\Model\Session $checkoutSession
     ) {
         $this->_objectManager = $objectManager;
         $this->_storeManager = $storeManager;
@@ -43,6 +46,7 @@ class Post extends \Magento\Framework\App\Action\Action
         $this->apiHelper = $apiHelper;
         $this->cart = $cart;
         $this->productRepository = $productRepository;
+        $this->checkoutSession = $checkoutSession;
 
         parent::__construct($context);
     }
@@ -68,6 +72,8 @@ class Post extends \Magento\Framework\App\Action\Action
             $this->cart->addProduct($_product, ['qty' => 1]);
 
             $this->cart->save();
+
+            $this->checkoutSession->setData('ec_qr', $qr['data']);
 
             $this->messageManager->addSuccess(__('Video Uploaded Successfully'));
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
