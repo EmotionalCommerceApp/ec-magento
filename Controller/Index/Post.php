@@ -18,18 +18,32 @@ class Post extends \Magento\Framework\App\Action\Action
     protected $_fileUploaderFactory;
     protected $apiHelper;
 
+    /**
+     * @var \Magento\Checkout\Model\Cart
+     */
+    protected $cart;
+    /**
+     * @var \Magento\Catalog\Api\ProductRepositoryInterface
+     */
+    protected $productRepository;
+
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\ObjectManagerInterface $objectManager,
         StoreManagerInterface $storeManager,\Magento\Framework\Filesystem $filesystem,
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
-        \Ec\Qr\Helper\Api $apiHelper
+        \Ec\Qr\Helper\Api $apiHelper,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\Checkout\Model\Cart $cart
     ) {
         $this->_objectManager = $objectManager;
         $this->_storeManager = $storeManager;
         $this->_filesystem = $filesystem;
         $this->_fileUploaderFactory = $fileUploaderFactory;
         $this->apiHelper = $apiHelper;
+        $this->cart = $cart;
+        $this->productRepository = $productRepository;
+
         parent::__construct($context);
     }
 
@@ -48,10 +62,23 @@ class Post extends \Magento\Framework\App\Action\Action
 
         $qr = $this->apiHelper->uploadVideo($result['path'] . $result['file']);
 
+        try {
+            $_product = $this->productRepository->get('ec-qr-product');
 
-        var_dump($qr);die;
+            $this->cart->addProduct($_product, ['qty' => 1]);
 
-        $this->_redirect('checkout/cart');
-        $this->messageManager->addSuccess(__('Video Uploaded successfully.'));
+            $this->cart->save();
+
+            $this->messageManager->addSuccess(__('Video Uploaded Successfully'));
+        } catch (\Magento\Framework\Exception\LocalizedException $e) {
+            $this->messageManager->addException(
+                $e,
+                __('%1', $e->getMessage())
+            );
+        } catch (\Exception $e) {
+            $this->messageManager->addException($e, __('An Error has occurred please try again later.'));
+        }
+
+        $this->getResponse()->setRedirect('/checkout/cart/index');
     }
 }
