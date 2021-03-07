@@ -21,14 +21,18 @@ class Printqr extends \Magento\Backend\Block\Template
 
     protected $request;
 
+    protected $apiHelper;
+
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Ec\Qr\Model\EcOrderFactory $ecOrderFactory,
-        \Magento\Framework\App\RequestInterface $request
+        \Magento\Framework\App\RequestInterface $request,
+        \Ec\Qr\Helper\Api $apiHelper
     ) {
         $this->context = $context;
         $this->ecOrderFactory = $ecOrderFactory;
         $this->request = $request;
+        $this->apiHelper = $apiHelper;
 
         parent::__construct($context);
     }
@@ -38,13 +42,21 @@ class Printqr extends \Magento\Backend\Block\Template
      *
      * @return array
      */
-    public function getQrUrl()
+    public function getTemplateHtml()
     {
         $orderId = $this->request->get('order_id');
 
         $ecOrder = $this->ecOrderFactory->create()->load($orderId, 'order_id');
 
-        return $ecOrder->getQr();
+        $config = $this->apiHelper->getConfig();
+
+        $template = str_replace(
+            '{{qr}}',
+            '<img width="720" height="720" src="'.$ecOrder->getQr().'" />',
+            $config['template']
+        );
+
+        return $template;
     }
 
 }
