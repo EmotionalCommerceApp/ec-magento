@@ -55,9 +55,11 @@ class Save extends \Magento\Backend\App\Action
         $configFactory = $this->configFactory->create();
         $collection = $configFactory->getCollection();
 
-        $ecProduct = $this->productRepository->get('ec-qr-product');
-        $ecProduct->setPrice($post['price']);
-        $this->productRepository->save($ecProduct);
+        if (isset($post['price'])) {
+            $ecProduct = $this->productRepository->get('ec-qr-product');
+            $ecProduct->setPrice($post['price']);
+            $this->productRepository->save($ecProduct);
+        }
 
         unset($post['form_key']);
         foreach ($collection as $config) {
