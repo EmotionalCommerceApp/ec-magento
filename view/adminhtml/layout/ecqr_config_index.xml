@@ -4,6 +4,7 @@
         <title>
             EC QR Configuration
         </title>
+        <css src="Ec_Qr::css/ec.css"/>
     </head>
     <body>
         <referenceContainer name="content">
