@@ -1,72 +1,72 @@
 <?php
-  $config = $this->getConfig();
+$config = $this->getConfig();
 
-  if (!$config['key'] || !$config['secret'] || !$config['domain']):
-  ?>
-  <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
-      <?php echo $this->getBlockHtml('formkey')?>
-      <p>
-        <label for="key">Key:</label>
-        <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
-      </p>
-      <p>
-        <label for="secret">Secret:</label>
-        <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
-      </p>
-      <p>
-        <label for="domain">Domain:</label>
-        <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
-      </p>
+if (!$config['key'] || !$config['secret'] || !$config['domain']):
+    ?>
+    <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <p>
+            <label for="key">Key:</label>
+            <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
+        </p>
+        <p>
+            <label for="secret">Secret:</label>
+            <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
+        </p>
+        <p>
+            <label for="domain">Domain:</label>
+            <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
+        </p>
 
-      <input type="submit" value="Save" />
-  </form>
-  <?php
-  else:
-      $campaigns = $this->getCampaigns($config['key'], $config['secret'], $config['domain']);
-  ?>
-  <form action="<?= $this->getActionUrl() ?>" method="post" enctype="multipart/form-data">
-      <?php echo $this->getBlockHtml('formkey')?>
-      <p>
-        <label for="key">Key:</label>
-        <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
-      </p>
-      <p>
-        <label for="secret">Secret:</label>
-        <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
-      </p>
-      <p>
-        <label for="domain">Domain:</label>
-        <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
-      </p>
-      <p>
-          <label for="price">Price:</label>
-          <input name="price" type="number" placeholder="Price" value="<?= $config['price'] ?>" required/>
-      </p>
+        <input type="submit" value="Save"/>
+    </form>
+<?php
+else:
+    $campaigns = $this->getCampaigns($config['key'], $config['secret'], $config['domain']);
+    ?>
+    <form action="<?= $this->getActionUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <p>
+            <label for="key">Key:</label>
+            <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
+        </p>
+        <p>
+            <label for="secret">Secret:</label>
+            <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
+        </p>
+        <p>
+            <label for="domain">Domain:</label>
+            <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
+        </p>
+        <p>
+            <label for="price">Price:</label>
+            <input name="price" type="number" placeholder="Price" value="<?= $config['price'] ?>" required/>
+        </p>
 
-      <?php if (!$campaigns): echo '<p style="color:red;">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>'; else: ?>
-      <p>
-          <label for="campaign">Campaign:</label>
-          <select name="campaign" required>
-              <option value="">Select Campaign</option>
-              <?php foreach($campaigns['data'] as $campaign):?>
-              <option
-                  value="<?= $campaign['id'] ?>"
-                  <?php if($config['campaign'] == $campaign['id']): echo 'selected'; endif ?>
-              >
-                  <?= $campaign['name'] ?>
-              </option>
-              <?php endforeach;?>
-          </select>
-      </p>
-      <p>
-          <label for="template">Template:</label>
-              <textarea name="template" id="template"><?= $config['template'] ?></textarea>
-      </p>
-      <?php endif?>
-      <input type="submit" value="Save" />
-  </form>
-  <?php
-  endif
+        <?php if (!$campaigns): echo '<p style="color:red;">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>'; else: ?>
+            <p>
+                <label for="campaign">Campaign:</label>
+                <select name="campaign" required>
+                    <option value="">Select Campaign</option>
+                    <?php foreach ($campaigns['data'] as $campaign): ?>
+                        <option
+                            value="<?= $campaign['id'] ?>"
+                            <?php if ($config['campaign'] == $campaign['id']): echo 'selected'; endif ?>
+                        >
+                            <?= $campaign['name'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+            <p>
+                <label for="template">Template:</label>
+                <textarea name="template" id="template"><?= $config['template'] ?></textarea>
+            </p>
+        <?php endif ?>
+        <input type="submit" value="Save"/>
+    </form>
+<?php
+endif
 ?>
 <script>
     require([
@@ -74,12 +74,14 @@
         "mage/translate",
         "mage/adminhtml/events",
         "mage/adminhtml/wysiwyg/tiny_mce/setup"
-    ], function(jQuery){
+    ], function (jQuery) {
         wysiwygcompany_description = new wysiwygSetup("template", {
-            "width":"99%",
-            "height":"200px",
-            "plugins":[{"name":"textcolor"}],
-            "tinymce4":{"toolbar":"formatselect | forecolor backcolor bold italic underline | alignleft aligncenter alignright | bullist numlist | link charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help",
+            "width": "99%",
+            "height": "200px",
+            "plugins": [{"name": "textcolor"}],
+            "tinymce4": {
+                "toolbar": "formatselect | forecolor backcolor bold italic underline | alignleft aligncenter alignright | bullist numlist | link charmap",
+                "plugins": "advlist autolink lists link charmap media noneditable table contextmenu paste code help",
             }
         });
         wysiwygcompany_description.setup("exact");
