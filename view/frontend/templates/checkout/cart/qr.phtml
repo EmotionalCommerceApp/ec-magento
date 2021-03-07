@@ -9,13 +9,11 @@ if ($config['campaign'] && $this->canShow()):
 
 <div id="qr-modal-content">
     <div class="modal-inner-content">
-        <h2>Modal Title</h2>
-        <p>Modal content…..</p>
         <div class="qr-video">
             <form method="POST" enctype="multipart/form-data" action="<?php echo $this->getUrl('ecqr/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
                 <fieldset class="fieldset">
                     <div class="field name required">
-                        <label class="label" for="name"><span><?php echo __('Employee Profile picture') ?></span></label>
+                        <label class="label" for="name"><span><?php echo __('Select the video you want to add') ?></span></label>
                         <div class="control">
                             <input name="video" id="video" value="" class="input-text" type="file" data-validate="{required:true}"/>
                         </div>
