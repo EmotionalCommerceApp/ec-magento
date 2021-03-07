@@ -48,6 +48,10 @@ class Printqr extends \Magento\Backend\Block\Template
 
         $ecOrder = $this->ecOrderFactory->create()->load($orderId, 'order_id');
 
+        if (!$ecOrder->getId()) {
+            return '';
+        }
+
         $config = $this->apiHelper->getConfig();
 
         $template = str_replace(
