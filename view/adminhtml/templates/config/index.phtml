@@ -1,3 +1,4 @@
+<div class="ec-form">
 <?php
 $config = $this->getConfig();
 
@@ -6,15 +7,15 @@ if (!$config['key'] || !$config['secret'] || !$config['domain']):
     <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
         <?php echo $this->getBlockHtml('formkey') ?>
         <p>
-            <label for="key">Key:</label>
+            <label for="key">Key</label>
             <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
         </p>
         <p>
-            <label for="secret">Secret:</label>
+            <label for="secret">Secret</label>
             <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
         </p>
         <p>
-            <label for="domain">Domain:</label>
+            <label for="domain">Domain</label>
             <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
         </p>
 
@@ -23,51 +24,75 @@ if (!$config['key'] || !$config['secret'] || !$config['domain']):
 <?php
 else:
     $campaigns = $this->getCampaigns($config['key'], $config['secret'], $config['domain']);
+    if (!$campaigns): echo '<p class="danger">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>';
+    else:
     ?>
     <form action="<?= $this->getActionUrl() ?>" method="post" enctype="multipart/form-data">
         <?php echo $this->getBlockHtml('formkey') ?>
-        <p>
-            <label for="key">Key:</label>
-            <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
-        </p>
-        <p>
-            <label for="secret">Secret:</label>
-            <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
-        </p>
-        <p>
-            <label for="domain">Domain:</label>
-            <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
-        </p>
-        <p>
-            <label for="price">Price:</label>
-            <input name="price" type="number" placeholder="Price" value="<?= $config['price'] ?>" required/>
-        </p>
-
-        <?php if (!$campaigns): echo '<p style="color:red;">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>'; else: ?>
-            <p>
-                <label for="campaign">Campaign:</label>
-                <select name="campaign" required>
-                    <option value="">Select Campaign</option>
-                    <?php foreach ($campaigns['data'] as $campaign): ?>
-                        <option
-                            value="<?= $campaign['id'] ?>"
-                            <?php if ($config['campaign'] == $campaign['id']): echo 'selected'; endif ?>
-                        >
-                            <?= $campaign['name'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </p>
-            <p>
-                <label for="template">Template:</label>
-                <textarea name="template" id="template"><?= $config['template'] ?></textarea>
-            </p>
+        <div data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'>
+            <div data-role="collapsible">
+                <div class="col-title" data-role="trigger">
+                    Api
+                </div>
+            </div>
+            <div data-role="content">
+                <p>
+                    <label for="key">Key</label>
+                    <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
+                </p>
+                <p>
+                    <label for="secret">Secret</label>
+                    <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
+                </p>
+                <p>
+                    <label for="domain">Domain</label>
+                    <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
+                </p>
+            </div>
+            <div data-role="collapsible">
+                <div class="col-title"  data-role="trigger">
+                    Configuration
+                </div>
+            </div>
+            <div data-role="content">
+                <p>
+                    <label for="price">Price</label>
+                    <input name="price" type="number" placeholder="Price" value="<?= $config['price'] ?>" required/>
+                </p>
+                <p>
+                    <label for="campaign">Campaign</label>
+                    <select name="campaign" required>
+                        <option value="">Select Campaign</option>
+                        <?php foreach ($campaigns['data'] as $campaign): ?>
+                            <option
+                                value="<?= $campaign['id'] ?>"
+                                <?php if ($config['campaign'] == $campaign['id']): echo 'selected'; endif ?>
+                            >
+                                <?= $campaign['name'] ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </p>
+            </div>
+            <div  class="col-title" data-role="collapsible">
+                <div data-role="trigger">
+                    Template
+                </div>
+            </div>
+            <div data-role="content">
+                <p>
+                    <label for="template">Add {{qr}} where you want to display the qr</label>
+                    <textarea name="template" id="template"><?= $config['template'] ?></textarea>
+                </p>
+            </div>
+        </div>
         <?php endif ?>
         <input type="submit" value="Save"/>
     </form>
 <?php
 endif
 ?>
+</div>
 <script>
     require([
         "jquery",
