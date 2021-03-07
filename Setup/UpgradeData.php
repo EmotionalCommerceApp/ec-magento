@@ -85,7 +85,7 @@ class UpgradeData implements UpgradeDataInterface
             $attributeSetId = $categorySetup->getDefaultAttributeSetId(\Magento\Catalog\Model\Product::ENTITY);
 
             $this->product->setSku('ec-qr-product');
-            $this->product->setName('EC Qr Video');
+            $this->product->setName('Emotional Commerce Video');
             $this->product->setUrlKey('ec-qr-product');
             $this->product->setAttributeSetId($attributeSetId);
             $this->product->setStatus(1);
