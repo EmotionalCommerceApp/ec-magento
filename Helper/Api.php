@@ -99,6 +99,8 @@ class Api extends AbstractHelper
             'campaign' => false,
             'template' => false,
             'price' => false,
+            'width' => 720,
+            'height' => 720,
         ];
 
         foreach ($collection as $config) {

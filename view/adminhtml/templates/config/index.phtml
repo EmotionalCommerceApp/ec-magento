@@ -24,8 +24,6 @@ if (!$config['key'] || !$config['secret'] || !$config['domain']):
 <?php
 else:
     $campaigns = $this->getCampaigns($config['key'], $config['secret'], $config['domain']);
-    if (!$campaigns): echo '<p class="danger">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>';
-    else:
     ?>
     <form action="<?= $this->getActionUrl() ?>" method="post" enctype="multipart/form-data">
         <?php echo $this->getBlockHtml('formkey') ?>
@@ -49,6 +47,10 @@ else:
                     <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
                 </p>
             </div>
+            <?php
+            if (!$campaigns): echo '<p class="danger">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>';
+            else:
+            ?>
             <div data-role="collapsible">
                 <div class="col-title"  data-role="trigger">
                     Configuration
@@ -72,6 +74,14 @@ else:
                             </option>
                         <?php endforeach; ?>
                     </select>
+                </p>
+                <p>
+                    <label for="width">QR width in px</label>
+                    <input name="width" type="number" placeholder="Width" value="<?= $config['width'] ?>" required/>
+                </p>
+                <p>
+                    <label for="height">QR height in px</label>
+                    <input name="height" type="number" placeholder="Height" value="<?= $config['height'] ?>" required/>
                 </p>
             </div>
             <div  class="col-title" data-role="collapsible">

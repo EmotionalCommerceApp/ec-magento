@@ -112,6 +112,8 @@ class Config extends \Magento\Backend\Block\Template
               'campaign' => false,
               'template' => false,
               'price' => false,
+              'width' => 720,
+              'height' => 720,
           ];
 
           foreach ($collection as $config) {

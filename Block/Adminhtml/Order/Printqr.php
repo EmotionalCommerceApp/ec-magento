@@ -56,7 +56,7 @@ class Printqr extends \Magento\Backend\Block\Template
 
         $template = str_replace(
             '{{qr}}',
-            '<img width="720" height="720" src="'.$ecOrder->getQr().'" />',
+            '<img width="'.$config['width'].'" height="'.$config['height'].'" src="'.$ecOrder->getQr().'" />',
             $config['template']
         );
 
