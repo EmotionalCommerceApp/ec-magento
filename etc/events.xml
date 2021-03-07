@@ -3,4 +3,10 @@
     <event name="checkout_submit_all_after">
         <observer name="ecqr_sales_order_place_after" instance="Ec\Qr\Observer\OrderPlaceAfter" />
     </event>
+    <event name="sales_quote_remove_item">
+        <observer name="ecqr_sales_quote_remove_item" instance="Ec\Qr\Observer\CartRemoveItem" />
+    </event>
+    <event name="sales_quote_item_qty_set_after">
+        <observer name="ecqr_sales_quote_add_item" instance="Ec\Qr\Observer\CartAddItem" />
+    </event>
 </config>
