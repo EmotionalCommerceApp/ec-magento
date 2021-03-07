@@ -64,7 +64,13 @@ class Post extends \Magento\Framework\App\Action\Action
         $path = $mediapath . '/ecqr/';
         $result = $uploader->save($path);
 
-        $qr = $this->apiHelper->uploadVideo($result['path'] . $result['file']);
+        $qr = $this->apiHelper->validateVideo($result['path'] . $result['file']);
+
+        if (!$qr['success']) {
+
+            $this->messageManager->addError(__('An Error has occurred please try again later.'));
+            return $this->getResponse()->setRedirect('/checkout/cart/index');
+        }
 
         try {
             $_product = $this->productRepository->get('ec-qr-product');
@@ -73,7 +79,7 @@ class Post extends \Magento\Framework\App\Action\Action
 
             $this->cart->save();
 
-            $this->checkoutSession->setData('ec_qr', $qr['data']);
+            $this->checkoutSession->setData('ec_qr', $result['path'] . $result['file']);
 
             $this->messageManager->addSuccess(__('Video Uploaded Successfully'));
         } catch (\Magento\Framework\Exception\LocalizedException $e) {

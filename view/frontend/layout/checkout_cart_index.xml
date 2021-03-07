@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="checkout.cart.totals.container">
-            <block class="Ec\Qr\Block\Cart" template="Ec_Qr::checkout/cart/qr.phtml" after="checkout.cart.totals" />
-        </referenceContainer>
+        <referenceBlock name="content">
+            <block class="Ec\Qr\Block\Cart" after="-" template="Ec_Qr::checkout/cart/qr.phtml" />
+        </referenceBlock>
     </body>
 </page>

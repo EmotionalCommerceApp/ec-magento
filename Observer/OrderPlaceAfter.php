@@ -9,13 +9,16 @@ class OrderPlaceAfter implements ObserverInterface
 
     protected $checkoutSession;
     protected $ecOrder;
+    protected $apiHelper;
 
     public function __construct(
         \Magento\Checkout\Model\Session $checkoutSession,
-        \Ec\Qr\Model\EcOrderFactory $ecOrder
+        \Ec\Qr\Model\EcOrderFactory $ecOrder,
+        \Ec\Qr\Helper\Api $apiHelper
     ){
         $this->checkoutSession = $checkoutSession;
-        $this->ecOrder = $ecOrder;;
+        $this->ecOrder = $ecOrder;
+        $this->apiHelper = $apiHelper;
     }
 
 
@@ -23,14 +26,27 @@ class OrderPlaceAfter implements ObserverInterface
     {
         $order = $observer->getEvent()->getOrder();
 
-        $qrData = $this->checkoutSession->getData('ec_qr');
+        $qrFile = $this->checkoutSession->getData('ec_qr');
+
+        if (!$qrFile) {
+            return;
+        }
+
+        $qrData = $this->apiHelper->uploadVideo($qrFile);
+
+        unlink($qrFile);
+        $this->checkoutSession->setData('ec_qr', 0);
+
+        if (!$qrData['success']) {
+            return;
+        }
 
         $ecOrder = $this->ecOrder->create();
         $ecOrder->setData(
             [
-                'url' => $qrData['url'],
+                'url' => $qrData['data']['url'],
                 'order_id' => $order->getId(),
-                'qr' => $qrData['qr'],
+                'qr' => $qrData['data']['qr'],
             ]
         );
         $ecOrder->save();

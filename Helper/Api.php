@@ -156,4 +156,48 @@ class Api extends AbstractHelper
 
     }
 
+    public function validateVideo($filePath)
+    {
+        $config = $this->getConfig();
+
+        $headers =  array(
+            'Accept: application/json',
+            'content-type: multipart/form-data',
+            'key: '.$config['key'],
+            'secret: '.$config['secret'],
+        );
+
+        $regUrl = $config['domain']. '.' . self::API_URL."/api/campaigns/video/verify";
+
+        $data = [
+            'campaign' => $config['campaign'],
+            'file' => curl_file_create($filePath),
+        ];
+
+        $regCurl = curl_init($regUrl);
+        curl_setopt($regCurl, CURLOPT_POST, 1);
+        curl_setopt($regCurl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($regCurl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt(
+            $regCurl,
+            CURLOPT_HTTPHEADER,
+            $headers
+        );
+        $regResult = json_decode(curl_exec($regCurl));
+        $statusCode = curl_getinfo($regCurl, CURLINFO_HTTP_CODE);
+        curl_close($regCurl);
+
+        if ($statusCode != 200) {
+            return [
+                'success' => false,
+                'message' => $regResult->message,
+            ];
+        }
+
+        return [
+            'success' => true,
+        ];
+
+    }
+
 }
