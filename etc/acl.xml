@@ -4,9 +4,9 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
-                    <resource id="Ec_Qr::config" title="Ec Config" sortOrder="10" >
-                        <resource id="Ec_Qr::config_child" title="Ec Config" sortOrder="40">
-                            <resource id="Ec_Qr::config_child_admin" title="Ec Config" sortOrder="40" />
+                    <resource id="Ec_Qr::config" title="Emotional Commerce" sortOrder="10" >
+                        <resource id="Ec_Qr::config_child" title="Configuration" sortOrder="40">
+                            <resource id="Ec_Qr::config_child_admin" title="Configuration" sortOrder="40" />
                         </resource>
                     </resource>
                 </resource>
