@@ -105,14 +105,6 @@ class UpgradeData implements UpgradeDataInterface
             $this->product->save();
         }
         if (version_compare($context->getVersion(), '1.0.1') < 0) {
-            $page = $this->pageFactory->create();
-            $page->setTitle('EC QR Template')
-                ->setIdentifier('ec-qr')
-                ->setIsActive(false)
-                ->setPageLayout('1column')
-                ->setStores([0])
-                ->setContent('Welcome to EC QR')
-                ->save();
         }
     }
 }

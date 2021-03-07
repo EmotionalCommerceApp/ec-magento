@@ -58,24 +58,30 @@
               <?php endforeach;?>
           </select>
       </p>
-          <p>
+      <p>
           <label for="template">Template:</label>
-          <select name="template" required>
-              <option value="">Select Template</option>
-              <?php foreach($this->getPages() as $page):?>
-                  <option
-                      value="<?= $page->getId() ?>"
-                      <?php if($config['template'] == $page->getId()): echo 'selected'; endif ?>
-                  >
-                      <?= $page->getTitle() ?>
-                  </option>
-              <?php endforeach;?>
-          </select>
+              <textarea name="template" id="template"><?= $config['template'] ?></textarea>
       </p>
       <?php endif?>
-
       <input type="submit" value="Save" />
   </form>
   <?php
   endif
 ?>
+<script>
+    require([
+        "jquery",
+        "mage/translate",
+        "mage/adminhtml/events",
+        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+    ], function(jQuery){
+        wysiwygcompany_description = new wysiwygSetup("template", {
+            "width":"99%",
+            "height":"200px",
+            "plugins":[{"name":"textcolor"}],
+            "tinymce4":{"toolbar":"formatselect | forecolor backcolor bold italic underline | alignleft aligncenter alignright | bullist numlist | link charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help",
+            }
+        });
+        wysiwygcompany_description.setup("exact");
+    });
+</script>
