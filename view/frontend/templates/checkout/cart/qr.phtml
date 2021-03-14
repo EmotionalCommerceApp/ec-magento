@@ -3,8 +3,13 @@ $config = $this->getConfig();
 if ($config['campaign'] && $this->canShow()):
 ?>
 
-<button type="button" id="qr-modal-btn" class="action primary checkout">
-    <span>Add Video</span>
+<button type="button" id="qr-modal-btn" class="action primary checkout"
+        style="
+            <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
+            <?php if ($config['button-color']){echo 'color: '. $config['button-color'] .';';} ?>
+        "
+>
+    <span><?= $config['button-title'] ?></span>
 </button>
 
 <div id="qr-modal-content">
@@ -13,7 +18,9 @@ if ($config['campaign'] && $this->canShow()):
             <form method="POST" enctype="multipart/form-data" action="<?php echo $this->getUrl('ecqr/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
                 <fieldset class="fieldset">
                     <div class="field name required">
-                        <label class="label" for="name"><span><?php echo __('Select the video you want to add') ?></span></label>
+                        <p>
+                            <?= nl2br($config['subtitle']) ?>
+                        </p>
                         <div class="control">
                             <input name="video" id="video" value="" class="input-text" type="file" data-validate="{required:true}"/>
                         </div>
@@ -21,12 +28,17 @@ if ($config['campaign'] && $this->canShow()):
 
                     <div class="actions-toolbar">
                         <div class="primary">
-                            <button type="submit" id="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
+                            <button type="submit" id="submit" title="<?php echo __('Submit') ?>" class="action submit primary"
+                                style="
+                                <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
+                                <?php if ($config['button-color']){echo 'color: '. $config['button-color'] .';';} ?>
+                                "
+                            >
                                 <span><?php echo __('Submit') ?></span>
                             </button>
-                            <button id="close" title="<?php echo __('Cancel') ?>" class="action submit">
+                            <div id="close" class="action primary">
                                 <span><?php echo __('Cancel') ?></span>
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -40,7 +52,7 @@ if ($config['campaign'] && $this->canShow()):
         var options = {
             type: 'popup', // popup or slide
             responsive: true, // true = on smaller screens the modal slides in from the right
-            title: 'Add Video',
+            title: '<?= $config['title'] ?>',
             buttons: []
         };
         var popup = modal(options, $('#qr-modal-content'));
