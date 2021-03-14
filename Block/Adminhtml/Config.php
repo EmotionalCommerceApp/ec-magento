@@ -114,6 +114,11 @@ class Config extends \Magento\Backend\Block\Template
               'price' => false,
               'width' => 720,
               'height' => 720,
+              'title' => __('Add Video'),
+              'subtitle' => false,
+              'button-title' => __('Add Video'),
+              'button-color' => false,
+              'button-background' => false,
           ];
 
           foreach ($collection as $config) {

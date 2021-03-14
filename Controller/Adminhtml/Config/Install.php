@@ -48,7 +48,13 @@ class Install extends \Magento\Backend\App\Action
 
         $key = $post['key'];
         $secret = $post['secret'];
+
         $domain = $post['domain'];
+        $domain = str_replace('http://', '', $domain);
+        $domain = str_replace('https://', '', $domain);
+        $domain = str_replace('www.', '', $domain);
+        $domain = explode('.', $domain);
+        $post['domain'] = $domain[0];
 
         $keyModel = $this->configFactory->create();
         $keyModel->setData(

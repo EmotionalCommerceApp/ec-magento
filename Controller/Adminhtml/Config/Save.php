@@ -61,6 +61,13 @@ class Save extends \Magento\Backend\App\Action
             $this->productRepository->save($ecProduct);
         }
 
+        $domain = $post['domain'];
+        $domain = str_replace('http://', '', $domain);
+        $domain = str_replace('https://', '', $domain);
+        $domain = str_replace('www.', '', $domain);
+        $domain = explode('.', $domain);
+        $post['domain'] = $domain[0];
+
         unset($post['form_key']);
         foreach ($collection as $config) {
             if (isset($post[$config->getName()])) {
@@ -69,6 +76,7 @@ class Save extends \Magento\Backend\App\Action
                 unset($post[$config->getName()]);
             }
         }
+
 
         foreach($post as $key => $config) {
             $configModel = $this->configFactory->create();
