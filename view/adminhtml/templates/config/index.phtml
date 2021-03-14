@@ -7,15 +7,15 @@ if (!$config['key'] || !$config['secret'] || !$config['domain']):
     <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
         <?php echo $this->getBlockHtml('formkey') ?>
         <p>
-            <label for="key">Key</label>
+            <label for="key">Key*</label>
             <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
         </p>
         <p>
-            <label for="secret">Secret</label>
+            <label for="secret">Secret*</label>
             <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
         </p>
         <p>
-            <label for="domain">Domain</label>
+            <label for="domain">Domain*</label>
             <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
         </p>
 
@@ -35,15 +35,15 @@ else:
             </div>
             <div data-role="content">
                 <p>
-                    <label for="key">Key</label>
+                    <label for="key">Key*</label>
                     <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
                 </p>
                 <p>
-                    <label for="secret">Secret</label>
+                    <label for="secret">Secret*</label>
                     <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
                 </p>
                 <p>
-                    <label for="domain">Domain</label>
+                    <label for="domain">Domain*</label>
                     <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
                 </p>
             </div>
@@ -58,11 +58,11 @@ else:
             </div>
             <div data-role="content">
                 <p>
-                    <label for="price">Price</label>
+                    <label for="price">Price*</label>
                     <input name="price" type="number" step="0.01" placeholder="Price" value="<?= $config['price'] ?>" required/>
                 </p>
                 <p>
-                    <label for="campaign">Campaign</label>
+                    <label for="campaign">Campaign*</label>
                     <select name="campaign" required>
                         <option value="">Select Campaign</option>
                         <?php foreach ($campaigns['data'] as $campaign): ?>
@@ -77,11 +77,11 @@ else:
                 </p>
                 <p>
                     <label for="width">QR width in px</label>
-                    <input name="width" type="number" placeholder="Width" value="<?= $config['width'] ?>" required/>
+                    <input name="width" type="number" placeholder="Width" value="<?= $config['width'] ?>" />
                 </p>
                 <p>
                     <label for="height">QR height in px</label>
-                    <input name="height" type="number" placeholder="Height" value="<?= $config['height'] ?>" required/>
+                    <input name="height" type="number" placeholder="Height" value="<?= $config['height'] ?>" />
                 </p>
             </div>
             <div  class="col-title" data-role="collapsible">
@@ -91,8 +91,35 @@ else:
             </div>
             <div data-role="content">
                 <p>
-                    <label for="template">Add {{qr}} where you want to display the qr</label>
-                    <textarea name="template" id="template"><?= $config['template'] ?></textarea>
+                    <label for="template">Add {{qr}} where you want to display the qr*</label>
+                    <textarea name="template" id="template" required><?= $config['template'] ?></textarea>
+                </p>
+            </div>
+            <div  class="col-title" data-role="collapsible">
+                <div data-role="trigger">
+                    Frontend
+                </div>
+            </div>
+            <div data-role="content">
+                <p>
+                    <label for="title">Title</label>
+                    <input name="title" type="text" placeholder="Title" value="<?= $config['title'] ?>" />
+                </p>
+                <p>
+                    <label for="subtitle">Sub Title</label>
+                    <textarea name="subtitle"><?= $config['subtitle'] ?></textarea>
+                </p>
+                <p>
+                    <label for="button-title">Button Title</label>
+                    <input name="button-title" type="text" placeholder="Button Title" value="<?= $config['button-title'] ?>" />
+                </p>
+                <p>
+                    <label for="button-color">Button Color (in HEX)</label>
+                    <input name="button-color" type="text" placeholder="Button Color" value="<?= $config['button-color'] ?>" />
+                </p>
+                <p>
+                    <label for="button-background">Button Background (in HEX)</label>
+                    <input name="button-background" type="text" placeholder="Button Background" value="<?= $config['button-background'] ?>" />
                 </p>
             </div>
         </div>
