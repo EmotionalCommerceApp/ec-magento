@@ -21,7 +21,7 @@ if ($config['campaign'] && $this->canShow()):
 
                     <div class="actions-toolbar">
                         <div class="primary">
-                            <button type="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
+                            <button type="submit" id="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
                                 <span><?php echo __('Submit') ?></span>
                             </button>
                         </div>
@@ -33,7 +33,7 @@ if ($config['campaign'] && $this->canShow()):
 </div>
 
 <script type="text/javascript">
-    require(["jquery", "Magento_Ui/js/modal/modal"],function($, modal) {
+    require(["jquery", "Magento_Ui/js/modal/modal", "loader"],function($, modal) {
         var options = {
             type: 'popup', // popup or slide
             responsive: true, // true = on smaller screens the modal slides in from the right
@@ -49,6 +49,11 @@ if ($config['campaign'] && $this->canShow()):
         var popup = modal(options, $('#qr-modal-content'));
         $("#qr-modal-btn").click(function() {
             $('#qr-modal-content').modal('openModal');
+        });
+        $('#submit').on('click', function (){
+            if ($('#video').get(0).files.length !== 0) {
+                $('body').trigger('processStart');
+            }
         });
     });
 </script>
