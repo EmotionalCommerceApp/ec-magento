@@ -24,6 +24,9 @@ if ($config['campaign'] && $this->canShow()):
                             <button type="submit" id="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
                                 <span><?php echo __('Submit') ?></span>
                             </button>
+                            <button id="close" title="<?php echo __('Cancel') ?>" class="action submit">
+                                <span><?php echo __('Cancel') ?></span>
+                            </button>
                         </div>
                     </div>
                 </fieldset>
@@ -38,13 +41,7 @@ if ($config['campaign'] && $this->canShow()):
             type: 'popup', // popup or slide
             responsive: true, // true = on smaller screens the modal slides in from the right
             title: 'Add Video',
-            buttons: [{ // Add array of buttons within the modal if you need.
-                text: $.mage.__('Cancel'),
-                class: 'modal-close',
-                click: function () {
-                    this.closeModal(); // This button closes the modal
-                }
-            }]
+            buttons: []
         };
         var popup = modal(options, $('#qr-modal-content'));
         $("#qr-modal-btn").click(function() {
@@ -54,6 +51,9 @@ if ($config['campaign'] && $this->canShow()):
             if ($('#video').get(0).files.length !== 0) {
                 $('body').trigger('processStart');
             }
+        });
+        $("#close").on("click",function(){
+            $('#qr-modal-content').modal('closeModal');
         });
     });
 </script>
