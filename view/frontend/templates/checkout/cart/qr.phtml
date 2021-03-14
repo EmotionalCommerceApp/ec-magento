@@ -1,0 +1,73 @@
+<?php
+$config = $this->getConfig();
+if ($config['campaign'] && $this->canShow()):
+?>
+
+<button type="button" id="qr-modal-btn" class="action primary checkout"
+        style="
+            <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
+            <?php if ($config['button-color']){echo 'color: '. $config['button-color'] .';';} ?>
+        "
+>
+    <span><?= $config['button-title'] ?></span>
+</button>
+
+<div id="qr-modal-content">
+    <div class="modal-inner-content">
+        <div class="qr-video">
+            <form method="POST" enctype="multipart/form-data" action="<?php echo $this->getUrl('ecqr/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+                <fieldset class="fieldset">
+                    <div class="field name required">
+                        <p>
+                            <?= nl2br($config['subtitle']) ?>
+                        </p>
+                        <div class="control">
+                            <input name="video" id="video" value="" class="input-text" type="file" data-validate="{required:true}"/>
+                        </div>
+                    </div>
+
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button type="submit" id="submit" title="<?php echo __('Submit') ?>" class="action submit primary"
+                                style="
+                                <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
+                                <?php if ($config['button-color']){echo 'color: '. $config['button-color'] .';';} ?>
+                                "
+                            >
+                                <span><?php echo __('Submit') ?></span>
+                            </button>
+                            <div id="close" class="action primary">
+                                <span><?php echo __('Cancel') ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["jquery", "Magento_Ui/js/modal/modal", "loader"],function($, modal) {
+        var options = {
+            type: 'popup', // popup or slide
+            responsive: true, // true = on smaller screens the modal slides in from the right
+            title: '<?= $config['title'] ?>',
+            buttons: []
+        };
+        var popup = modal(options, $('#qr-modal-content'));
+        $("#qr-modal-btn").click(function() {
+            $('#qr-modal-content').modal('openModal');
+        });
+        $('#submit').on('click', function (){
+            if ($('#video').get(0).files.length !== 0) {
+                $('body').trigger('processStart');
+            }
+        });
+        $("#close").on("click",function(){
+            $('#qr-modal-content').modal('closeModal');
+        });
+    });
+</script>
+
+<?php endif; ?>
