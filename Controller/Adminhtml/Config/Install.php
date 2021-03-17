@@ -78,7 +78,7 @@ class Install extends \Magento\Backend\App\Action
         $domainModel->setData(
             [
                 'name' => 'domain',
-                'value' => $domain,
+                'value' => $post['domain'],
             ]
         );
         $domainModel->save();
