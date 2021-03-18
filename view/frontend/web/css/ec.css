@@ -10,4 +10,13 @@
     float: right;
     width: 50%;
 }
-
+.modal-popup .modal-inner-wrap {
+    width: 50%;
+}
+.modal-text {
+    margin-bottom: 50px;
+}
+#close {
+    height: 32px;
+    line-height: 16px;
+}
