@@ -7,16 +7,17 @@ if (!$config['key'] || !$config['secret'] || !$config['domain']):
     <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
         <?php echo $this->getBlockHtml('formkey') ?>
         <p>
-            <label for="key">Key*</label>
+            <label for="key">Key<span class="red">*</span></label>
             <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
         </p>
         <p>
-            <label for="secret">Secret*</label>
+            <label for="secret">Secret<span class="red">*</span></label>
             <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
         </p>
         <p>
-            <label for="domain">Domain*</label>
+            <label for="domain">Domain<span class="red">*</span></label>
             <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
+            <label><span class="red">subdomain</span>.emotionalcommerce.com</label>
         </p>
 
         <input type="submit" value="Save"/>
@@ -33,18 +34,19 @@ else:
                     Api
                 </div>
             </div>
-            <div data-role="content">
+            <div data-role="content" class="col-body">
                 <p>
-                    <label for="key">Key*</label>
+                    <label for="key">Key<span class="red">*</span></label>
                     <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
                 </p>
                 <p>
-                    <label for="secret">Secret*</label>
+                    <label for="secret">Secret<span class="red">*</span></label>
                     <input name="secret" type="text" placeholder="Secret" value="<?= $config['secret'] ?>" required/>
                 </p>
                 <p>
-                    <label for="domain">Domain*</label>
+                    <label for="domain">SubDomain<span class="red">*</span></label>
                     <input name="domain" type="text" placeholder="Domain" value="<?= $config['domain'] ?>" required/>
+                    <label><span class="red">subdomain</span>.emotionalcommerce.com</label>
                 </p>
             </div>
             <?php
@@ -56,13 +58,13 @@ else:
                     Configuration
                 </div>
             </div>
-            <div data-role="content">
+            <div data-role="content" class="col-body">
                 <p>
-                    <label for="price">Price*</label>
+                    <label for="price">Price<span class="red">*</span></label>
                     <input name="price" type="number" step="0.01" placeholder="Price" value="<?= $config['price'] ?>" required/>
                 </p>
                 <p>
-                    <label for="campaign">Campaign*</label>
+                    <label for="campaign">Campaign<span class="red">*</span></label>
                     <select name="campaign" required>
                         <option value="">Select Campaign</option>
                         <?php foreach ($campaigns['data'] as $campaign): ?>
@@ -85,9 +87,9 @@ else:
                     Template
                 </div>
             </div>
-            <div data-role="content">
+            <div data-role="content" class="col-body">
                 <p>
-                    <label for="template">Add {{qr}} where you want to display the qr*</label>
+                    <label for="template">Add {{qr}} where you want to display the qr<span class="red">*</span></label>
                     <textarea name="template" id="template" required><?= $config['template'] ?></textarea>
                 </p>
             </div>
@@ -96,7 +98,7 @@ else:
                     Frontend
                 </div>
             </div>
-            <div data-role="content">
+            <div data-role="content" class="col-body">
                 <p>
                     <label for="title">Title</label>
                     <input name="title" type="text" placeholder="Title" value="<?= $config['title'] ?>" />
@@ -120,7 +122,7 @@ else:
             </div>
         </div>
         <?php endif ?>
-        <input type="submit" value="Save"/>
+        <input id="submit" type="submit" value="Save"/>
     </form>
 <?php
 endif
