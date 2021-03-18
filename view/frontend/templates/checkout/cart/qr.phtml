@@ -15,7 +15,7 @@ if ($config['campaign'] && $this->canShow()):
 <div id="qr-modal-content">
     <div class="modal-inner-content">
         <div class="qr-video">
-            <form method="POST" enctype="multipart/form-data" action="<?php echo $this->getUrl('ecqr/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+            <form method="POST" id="ecForm" enctype="multipart/form-data" action="<?php echo $this->getUrl('ecqr/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
                 <div class="form-wrapper">
                     <div class="image-wrapper">
                         <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-image.jpg'); ?>" />
@@ -32,14 +32,14 @@ if ($config['campaign'] && $this->canShow()):
 
                         <div class="actions-toolbar">
                             <div class="primary">
-                                <button type="submit" id="submit" title="<?php echo __('Submit') ?>" class="action submit primary"
+                                <div id="submit" class="action submit primary"
                                         style="
                                         <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
                                         <?php if ($config['button-color']){echo 'color: '. $config['button-color'] .';';} ?>
                                             "
                                 >
                                     <span><?php echo __('Submit') ?></span>
-                                </button>
+                                </div>
                                 <div id="close" class="action primary">
                                     <span><?php echo __('Cancel') ?></span>
                                 </div>
@@ -64,9 +64,11 @@ if ($config['campaign'] && $this->canShow()):
         $("#qr-modal-btn").click(function() {
             $('#qr-modal-content').modal('openModal');
         });
-        $('#submit').on('click', function (){
-            if ($('#video').get(0).files.length !== 0) {
-                $('body').trigger('processStart');
+        $('#submit').on('click', function (e){
+            $('body').trigger('processStart');
+            $('#ecForm').submit();
+            if ($('#video').get(0).files.length === 0) {
+                $('body').trigger('processStop');
             }
         });
         $("#close").on("click",function(){
