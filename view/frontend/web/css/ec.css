@@ -1,0 +1,13 @@
+.form-wrapper .image-wrapper {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+.form-wrapper .image-wrapper img {
+    max-width: 100%;
+}
+.form-wrapper .fieldset {
+    float: right;
+    width: 50%;
+}
+
