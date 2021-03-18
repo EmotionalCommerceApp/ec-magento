@@ -28,6 +28,12 @@ class Save extends \Magento\Backend\App\Action
      */
     protected $productRepository;
 
+    protected $directoryList;
+
+    protected $file;
+
+    protected $moduleReader;
+
     /**
      * Constructor
      *
@@ -39,7 +45,10 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Ec\Qr\Model\ConfigFactory $configFactory,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
+        \Magento\Framework\Filesystem\Io\File $file,
+        \Magento\Framework\Module\Dir\Reader $moduleReader
     ) {
         parent::__construct($context);
 
@@ -47,6 +56,9 @@ class Save extends \Magento\Backend\App\Action
         $this->messageManager = $messageManager;
         $this->configFactory = $configFactory;
         $this->productRepository = $productRepository;
+        $this->directoryList = $directoryList;
+        $this->file = $file;
+        $this->moduleReader = $moduleReader;
     }
 
     public function execute()
@@ -58,6 +70,25 @@ class Save extends \Magento\Backend\App\Action
         if (isset($post['price'])) {
             $ecProduct = $this->productRepository->get('ec-qr-product');
             $ecProduct->setPrice($post['price']);
+
+            if($ecProduct->getData('image') === 'no_selection' || !$ecProduct->getData('image')) {
+                $tmpDir = $this->getMediaDirTmpDir();
+                $this->file->checkAndCreateFolder($tmpDir);
+                $newFileName = $tmpDir . 'product-image.jpg';
+                $img = $this->moduleReader->getModuleDir(
+                    \Magento\Framework\Module\Dir::MODULE_VIEW_DIR,
+                    'Ec_Qr'
+                ) . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'product-image.jpg';
+                $this->file->read($img, $newFileName);
+
+                $ecProduct->addImageToMediaGallery(
+                    $newFileName,
+                    ['image', 'small_image', 'thumbnail'],
+                    true,
+                    true
+                );
+            }
+
             $this->productRepository->save($ecProduct);
         }
 
@@ -94,6 +125,11 @@ class Save extends \Magento\Backend\App\Action
 
         $this->messageManager->addSuccess(__("Module Updated"));
         return $resultRedirect->setPath($url);
+    }
+
+    protected function getMediaDirTmpDir()
+    {
+        return $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
     }
 
 }
