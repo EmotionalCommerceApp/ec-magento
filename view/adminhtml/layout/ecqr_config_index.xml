@@ -5,6 +5,7 @@
             Emotional Commerce
         </title>
         <css src="Ec_Qr::css/ec.css"/>
+        <css src="Ec_Qr::css/spectrum.css"/>
     </head>
     <body>
         <referenceContainer name="content">

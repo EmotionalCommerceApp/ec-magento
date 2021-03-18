@@ -1,0 +1,22 @@
+.form-wrapper .image-wrapper {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+.form-wrapper .image-wrapper img {
+    max-width: 100%;
+}
+.form-wrapper .fieldset {
+    float: right;
+    width: 50%;
+}
+.modal-popup .modal-inner-wrap {
+    width: 50%;
+}
+.modal-text {
+    margin-bottom: 50px;
+}
+#close {
+    height: 32px;
+    line-height: 16px;
+}
