@@ -112,12 +112,12 @@ else:
                     <input name="button-title" type="text" placeholder="Button Title" value="<?= $config['button-title'] ?>" />
                 </p>
                 <p>
-                    <label for="button-color">Button Color (in HEX)</label>
-                    <input name="button-color" type="text" placeholder="Button Color" value="<?= $config['button-color'] ?>" />
+                    <label for="button-color">Button Color</label>
+                    <input name="button-color" id="button-color" type="text" placeholder="Button Color" value="<?= $config['button-color'] ?>" />
                 </p>
                 <p>
-                    <label for="button-background">Button Background (in HEX)</label>
-                    <input name="button-background" type="text" placeholder="Button Background" value="<?= $config['button-background'] ?>" />
+                    <label for="button-background">Button Background</label>
+                    <input name="button-background" id="button-background" type="text" placeholder="Button Background" value="<?= $config['button-background'] ?>" />
                 </p>
             </div>
         </div>
@@ -133,8 +133,9 @@ endif
         "jquery",
         "mage/translate",
         "mage/adminhtml/events",
-        "mage/adminhtml/wysiwyg/tiny_mce/setup"
-    ], function (jQuery) {
+        "mage/adminhtml/wysiwyg/tiny_mce/setup",
+        "spectrum"
+    ], function ($) {
         wysiwygcompany_description = new wysiwygSetup("template", {
             "width": "99%",
             "height": "200px",
@@ -145,5 +146,17 @@ endif
             }
         });
         wysiwygcompany_description.setup("exact");
+        $(document).ready(function (){
+            $("#button-color").spectrum({
+                type: "text",
+                showAlpha: "false",
+                preferredFormat: "hex"
+            });
+            $("#button-background").spectrum({
+                type: "text",
+                showAlpha: "false",
+                preferredFormat: "hex"
+            });
+        });
     });
 </script>
