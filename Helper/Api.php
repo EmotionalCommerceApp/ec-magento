@@ -208,4 +208,56 @@ class Api extends AbstractHelper
 
     }
 
+    public function createEvent($ecOrder)
+    {
+        $config = $this->getConfig();
+
+        $headers =  array(
+            'Accept: application/json',
+            'content-type: multipart/form-data',
+            'key: '.$config['key'],
+            'secret: '.$config['secret'],
+        );
+
+        $slug = $ecOrder->getUrl();
+        $slug = explode('/', $slug);
+        $slug = end($slug);
+
+        $regUrl = $config['domain']. '.' . self::API_URL."/api/event/create/" . $slug;
+
+        $regCurl = curl_init($regUrl);
+        curl_setopt($regCurl, CURLOPT_POST, 0);
+        curl_setopt($regCurl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $regCurl,
+            CURLOPT_HTTPHEADER,
+            $headers
+        );
+        $regResult = json_decode(curl_exec($regCurl));
+        $statusCode = curl_getinfo($regCurl, CURLINFO_HTTP_CODE);
+        curl_close($regCurl);
+
+        if ($statusCode != 200) {
+            if ($statusCode == 409) {
+                $ecOrder->setPrinted(1);
+                $ecOrder->save();
+
+                return [
+                    'success' => true,
+                ];
+            }
+            return [
+                'success' => false,
+                'message' => $regResult->message,
+            ];
+        }
+
+        $ecOrder->setPrinted(1);
+        $ecOrder->save();
+
+        return [
+            'success' => true,
+        ];
+    }
+
 }
