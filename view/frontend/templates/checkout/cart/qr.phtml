@@ -1,6 +1,6 @@
 <?php
 $config = $this->getConfig();
-if ($config['campaign'] && $this->canShow()):
+if ($config['campaign'] && $this->canShow() && $config['enabled']):
 ?>
 
 <button type="button" id="qr-modal-btn" class="action primary checkout"

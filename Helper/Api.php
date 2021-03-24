@@ -106,6 +106,7 @@ class Api extends AbstractHelper
             'button-title' => __('Add Video'),
             'button-color' => false,
             'button-background' => false,
+            'enabled' => 0,
         ];
 
         foreach ($collection as $config) {
