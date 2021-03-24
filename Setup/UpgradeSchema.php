@@ -69,6 +69,20 @@ class UpgradeSchema implements UpgradeSchemaInterface
             }
         }
 
+        if(version_compare($context->getVersion(), '1.0.3', '<')) {
+            if ($installer->tableExists('ec_qr_order')) {
+                $installer->getConnection()->addColumn(
+                    $installer->getTable('ec_qr_order'),
+                    'printed',
+                    [
+                        'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                        'nullable' => true,
+                        'comment' => 'Printed'
+                    ]
+                );
+            }
+        }
+
         $installer->endSetup();
     }
 }
