@@ -49,7 +49,14 @@ class Printqr extends \Magento\Backend\Block\Template
         $ecOrder = $this->ecOrderFactory->create()->load($orderId, 'order_id');
 
         if (!$ecOrder->getId()) {
-            return '';
+            return '<p>This order does not contain a QR Order</p>';
+        }
+
+        if (!$ecOrder->getPrinted()) {
+            $response = $this->apiHelper->createEvent($ecOrder);
+            if (!$response['success']) {
+                return '<p>It seems Something went wrong, please try again or contact our support</p>';
+            }
         }
 
         $config = $this->apiHelper->getConfig();
