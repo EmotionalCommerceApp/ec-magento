@@ -73,6 +73,9 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         $("#close").on("click",function(){
             $('#qr-modal-content').modal('closeModal');
         });
+        $('.upload-button').on('click', function(){
+            $('#video').trigger('click');
+        });
     });
 </script>
 
