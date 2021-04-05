@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+.modal-popup {
+    font-family: 'Roboto';
+    font-weight: 400;
+}
 .form-wrapper .image-wrapper {
     text-align: center;
 }
@@ -29,7 +34,7 @@
 .modal-popup .modal-title {
     border: none;
     text-align: center;
-    font-weight: bold;
+    font-weight: 700;
 }
 #video {
     display: none;
