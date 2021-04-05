@@ -6,7 +6,7 @@ use \Magento\Framework\App\Helper\AbstractHelper;
 class Api extends AbstractHelper
 {
 
-    const API_URL = 'emotionalcommerce.com';
+    const API_URL = 'localhost:8000';
 
     /**
      * ConfigFactory
