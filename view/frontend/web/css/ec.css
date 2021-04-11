@@ -56,8 +56,18 @@
     margin-top: -10px;
     margin-right: 5px;
 }
-@media (max-width:961px) {
+@media (max-width: 767px) {
+    .modal-popup.modal-slide {
+        left: auto;
+    }
+}
+@media (max-width: 1024px) {
     .modal-popup .modal-inner-wrap {
-        width: 90%;
+        width: 80%;
+    }
+}
+@media (max-width: 1280px) {
+    .modal-popup .modal-inner-wrap {
+        width: 60%;
     }
 }
