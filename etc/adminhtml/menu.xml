@@ -15,5 +15,13 @@
               parent="Ec_Qr::config"
               resource="Magento_Backend::content"
           />
+         <add id="Ec_Qr::instructions_child"
+              title="Instructions"
+              module="Ec_Qr"
+              sortOrder="10"
+              action="ecqr/instructions"
+              parent="Ec_Qr::config"
+              resource="Magento_Backend::content"
+          />
     </menu>
 </config>
