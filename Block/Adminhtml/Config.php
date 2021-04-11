@@ -120,6 +120,7 @@ class Config extends \Magento\Backend\Block\Template
               'button-color' => false,
               'button-background' => false,
               'enabled' => 0,
+              'qr-title' => __('Scan the QR to see the <br /> Emotional Message'),
           ];
 
           foreach ($collection as $config) {

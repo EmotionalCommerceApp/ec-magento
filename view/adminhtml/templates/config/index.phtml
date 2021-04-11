@@ -106,6 +106,10 @@ else:
             </div>
             <div data-role="content" class="col-body">
                 <p>
+                    <label for="qr-title">QR Title</label>
+                    <input name="qr-title" type="text" placeholder="QR Title" value="<?= $config['qr-title'] ?>" />
+                </p>
+                <p>
                     <label for="template">Add {{qr}} where you want to display the qr<span class="red">*</span></label>
                     <textarea name="template" id="template" required><?= $config['template'] ?></textarea>
                 </p>
