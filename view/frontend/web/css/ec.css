@@ -13,7 +13,7 @@
     width: 30%;
 }
 .modal-text {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 #close {
     height: 32px;
@@ -30,6 +30,8 @@
 }
 #submit {
     width: 100%;
+    height: 50px;
+    line-height: 36px;
 }
 .modal-popup .modal-title {
     border: none;
