@@ -83,6 +83,20 @@ class UpgradeSchema implements UpgradeSchemaInterface
             }
         }
 
+        if(version_compare($context->getVersion(), '1.0.4', '<')) {
+            if ($installer->tableExists('ec_qr_configuration')) {
+                $installer->getConnection()->changeColumn(
+                      $installer->getTable('ec_qr_configuration'),
+                      'value',
+                      'value',
+                      [
+                          'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                          'length'   => '2M',
+                      ]
+                );
+            }
+        }
+
         $installer->endSetup();
     }
 }
