@@ -11,6 +11,8 @@
     left: -55%;
     background-repeat: no-repeat;
     background-size: 50% 50%;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
 }
 @page {
    size: auto;
