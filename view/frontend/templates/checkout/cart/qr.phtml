@@ -92,9 +92,65 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         $("#close").on("click",function(){
             $('#qr-modal-content').modal('closeModal');
         });
-        $('.upload-button').on('click', function(){
+        $('#upload-button').on('click', function(){
+            $('#blob').val('');
+            $('#live').hide();
+            $('.video_display').hide();
             $('#video').trigger('click');
         });
+        var recordButton, stopButton, recorder, liveStream;
+    		recordButton = document.getElementById('record');
+    		stopButton = document.getElementById('stop');
+    		recordButton.addEventListener('click', startRecording);
+    		stopButton.addEventListener('click', stopRecording);
+    		function startRecording() {
+      			navigator.mediaDevices.getUserMedia({
+        				audio: true,
+        				video: true
+      			})
+    				.then(function (stream) {
+      					liveStream = stream;
+      					var liveVideo = document.getElementById('live');
+      					// liveVideo.src = URL.createObjectURL(stream);
+      					// liveVideo.play();
+      					liveVideo.srcObject = stream;
+      					liveVideo.play();
+
+      					recorder = new MediaRecorder(liveStream);
+      					recorder.addEventListener('dataavailable', onRecordingReady);
+      					$(".video_display").hide();
+      					$("#popup_image").hide();
+      					$(".live_video").show();
+      					$("#upload-file-btn").hide();
+      					$("#record").hide();
+      					$("#stop").show();
+                $('#upload-button').hide();
+      					recorder.start();
+    				});
+    		}
+    		function stopRecording() {
+      			recorder.stop();
+      			$("#record").show();
+      			$("#stop").hide();
+      			$('#remove-recorded-video-btn').show();
+      			$('#upload-file-btn').hide();
+            $('#upload-button').show();
+    		}
+    		function onRecordingReady(e) {
+            var video = document.getElementById('recording');
+            video.src = URL.createObjectURL(e.data);
+            video.play();
+            $(".video_display").show();
+            $(".live_video").hide();
+            blob_data = e.data;
+            console.debug(blob_data);
+            var reader = new FileReader();
+            reader.readAsDataURL(blob_data);
+            reader.onloadend = function() {
+               var base64data = reader.result;
+               $('#blob').val(base64data);
+            }
+    		}
     });
 </script>
 
