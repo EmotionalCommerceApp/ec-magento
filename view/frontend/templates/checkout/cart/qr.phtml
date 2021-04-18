@@ -26,11 +26,30 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                     </p>
                     <fieldset class="fieldset">
                         <div class="field name required">
+                            <div class="record-wrapper">
+                                <video id="live" muted class="live_video mymodal-img" style="display:none"></video>
+                                <span class="live_video mymodal-recording-tag" style="display:none">
+                                    <?= __('Video Recording') ?>
+                                </span>
+                                <video id="recording" controls class="video_display mymodal-img" style="display:none"></video>
+                                <span class="video_display mymodal-recording-tag" style="display:none">
+                                    <?= __('Recorded Clip') ?>
+                                </span>
+                            </div>
                             <div class="control modal-text">
-                                <div class="upload-button">
-                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-upload.svg'); ?>" />
-                                    <?= __('Add Video') ?>
+                                <div class="upload-button" id="record">
+                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
+                                    <?= __('Record Video') ?>
                                 </div>
+                                <div class="upload-button" id="stop">
+                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
+                                    <?= __('Stop Recording') ?>
+                                </div>
+                                <div class="upload-button" id="upload-button">
+                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-upload.svg'); ?>" />
+                                    <?= __('Upload Video') ?>
+                                </div>
+                                <input id="blob" name="blob" type="hidden" />
                                 <input name="video" id="video" value="" class="input-text" type="file" data-validate="{required:true}"/>
                             </div>
                         </div>
