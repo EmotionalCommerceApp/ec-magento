@@ -57,17 +57,25 @@ class Post extends \Magento\Framework\App\Action\Action
 
         $mediaDir = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA)->getAbsolutePath();
         $mediapath = $this->_mediaBaseDirectory = rtrim($mediaDir, '/');
-
-        $uploader = $this->_fileUploaderFactory->create(['fileId' => 'video']);
-        $uploader->setAllowedExtensions(['mp4', 'mov', 'webm', 'ogg', 'avi']);
-        $uploader->setAllowRenameFiles(true);
         $path = $mediapath . '/ecqr/';
-        $result = $uploader->save($path);
 
-        $qr = $this->apiHelper->validateVideo($result['path'] . $result['file']);
+        if (empty($post['blob'])) {
+            $uploader = $this->_fileUploaderFactory->create(['fileId' => 'video']);
+            $uploader->setAllowedExtensions(['mp4', 'mov', 'webm', 'ogg', 'avi', 'mkv']);
+            $uploader->setAllowRenameFiles(true);
+            $result = $uploader->save($path);
+            $qr = $this->apiHelper->validateVideo($result['path'] . $result['file']);
+        } else {
+            $data = $post['blob'];
+            $data = base64_decode($data);
+            $name = uniqid() . '.webm';
+            $fullPath = $path . $name;
+            file_put_contents($fullPath, $data);
+            $qr = $this->apiHelper->validateVideo($fullPath);
+            $result = ['path' => $path, 'file' => $name];
+        }
 
         if (!$qr['success']) {
-
             $this->messageManager->addError(__('An Error has occurred please try again later.'));
             return $this->getResponse()->setRedirect('/checkout/cart/index');
         }
