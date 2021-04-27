@@ -45,6 +45,10 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                                     <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
                                     <?= __('Stop Recording') ?>
                                 </div>
+                                <div class="upload-button" id="remove" style="display:none;">
+                                    <?= __('Remove Video') ?>
+                                </div>
+                                <span class="mymodal-recording-tag" id="filename" style="display:none;"></span>
                                 <div class="upload-button" id="upload-button">
                                     <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-upload.svg'); ?>" />
                                     <?= __('Upload Video') ?>
@@ -54,6 +58,9 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                             </div>
                         </div>
                         <div class="actions-toolbar">
+                            <span class="mymodal-recording-tag error" style="display:none">
+                                <?= __('Please Upload or Record a Video') ?>
+                            </span>
                             <div id="submit" class="action submit primary"
                                     style="
                                     <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
@@ -80,12 +87,33 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         };
         var popup = modal(options, $('#qr-modal-content'));
         $("#qr-modal-btn").click(function() {
+            $('#qr-modal-content').show();
             $('#qr-modal-content').modal('openModal');
+        });
+        $('#video').change(function() {
+            var file = $('#video')[0].files[0].name;
+            $('#filename').show().text(file);
         });
         $('#submit').on('click', function (e){
             $('body').trigger('processStart');
-            $('#ecForm').submit();
-            if ($('#video').get(0).files.length === 0) {
+            if ($('#blob').val() == 1) {
+              var data = new FormData();
+              data.append('file', blob_data, 'file.webm');
+              $.ajax({
+                  url :  "<?php echo $this->getUrl('ecqr/index/upload'); ?>",
+                  type: 'POST',
+                  data: data,
+                  contentType: false,
+                  processData: false,
+                  success: function(data) {
+                      $('#blob').val(data.name);
+                      $('#ecForm').submit();
+                  }
+              });
+            } else if ($('#video').get(0).files.length !== 0) {
+                $('#ecForm').submit();
+            } else {
+                $('.error').show();
                 $('body').trigger('processStop');
             }
         });
@@ -97,6 +125,17 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
             $('#live').hide();
             $('.video_display').hide();
             $('#video').trigger('click');
+            $('.error').hide();
+        });
+        $('#remove').on('click', function() {
+            $('#filename').text('');
+            $('#video').val(null);
+            $('#upload-button').show();
+            $(".video_display").hide();
+            $(this).hide();
+            var video = document.getElementById('recording');
+            video.pause();
+            $('#blob').val('');
         });
         var recordButton, stopButton, recorder, liveStream;
     		recordButton = document.getElementById('record');
@@ -124,17 +163,21 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
       					$("#upload-file-btn").hide();
       					$("#record").hide();
       					$("#stop").show();
+                $("#filename").hide().text('');
+                $('#video').val(null);
                 $('#upload-button').hide();
       					recorder.start();
+                $('#submit').hide();
+                $('.error').hide();
     				});
     		}
     		function stopRecording() {
       			recorder.stop();
       			$("#record").show();
       			$("#stop").hide();
-      			$('#remove-recorded-video-btn').show();
+      			$('#remove').show();
       			$('#upload-file-btn').hide();
-            $('#upload-button').show();
+            $('#submit').show();
     		}
     		function onRecordingReady(e) {
             var video = document.getElementById('recording');
@@ -143,13 +186,8 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
             $(".video_display").show();
             $(".live_video").hide();
             blob_data = e.data;
-            console.debug(blob_data);
-            var reader = new FileReader();
-            reader.readAsDataURL(blob_data);
-            reader.onloadend = function() {
-               var base64data = reader.result;
-               $('#blob').val(base64data);
-            }
+            $('#blob').val(1);
+            $('#remove').show();
     		}
     });
 </script>
