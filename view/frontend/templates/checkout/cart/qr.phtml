@@ -80,6 +80,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         };
         var popup = modal(options, $('#qr-modal-content'));
         $("#qr-modal-btn").click(function() {
+            $('#qr-modal-content').show();
             $('#qr-modal-content').modal('openModal');
         });
         $('#submit').on('click', function (e){
