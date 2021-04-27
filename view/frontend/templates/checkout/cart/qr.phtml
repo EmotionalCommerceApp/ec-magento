@@ -54,6 +54,9 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                             </div>
                         </div>
                         <div class="actions-toolbar">
+                            <span class="mymodal-recording-tag error" style="display:none">
+                                <?= __('Please Upload or Record a Video') ?>
+                            </span>
                             <div id="submit" class="action submit primary"
                                     style="
                                     <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
@@ -85,8 +88,10 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         });
         $('#submit').on('click', function (e){
             $('body').trigger('processStart');
-            $('#ecForm').submit();
-            if ($('#video').get(0).files.length === 0) {
+            if ($('#video').get(0).files.length !== 0 || $('#blob').val() != '') {
+                $('#ecForm').submit();
+            } else {
+                $('.error').show();
                 $('body').trigger('processStop');
             }
         });
