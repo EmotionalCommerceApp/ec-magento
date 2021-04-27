@@ -45,6 +45,9 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                                     <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
                                     <?= __('Stop Recording') ?>
                                 </div>
+                                <span class="mymodal-recording-tag error" id="filename" style="display:none;">
+                                    <?= __('Please Upload or Record a Video') ?>
+                                </span>
                                 <div class="upload-button" id="upload-button">
                                     <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-upload.svg'); ?>" />
                                     <?= __('Upload Video') ?>
@@ -85,6 +88,10 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         $("#qr-modal-btn").click(function() {
             $('#qr-modal-content').show();
             $('#qr-modal-content').modal('openModal');
+        });
+        $('#video').change(function() {
+            var file = $('#video')[0].files[0].name;
+            $('#filename').show().text(file);
         });
         $('#submit').on('click', function (e){
             $('body').trigger('processStart');
