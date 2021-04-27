@@ -45,9 +45,10 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                                     <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
                                     <?= __('Stop Recording') ?>
                                 </div>
-                                <span class="mymodal-recording-tag error" id="filename" style="display:none;">
-                                    <?= __('Please Upload or Record a Video') ?>
-                                </span>
+                                <div class="upload-button" id="remove" style="display:none;">
+                                    <?= __('Remove Video') ?>
+                                </div>
+                                <span class="mymodal-recording-tag" id="filename" style="display:none;"></span>
                                 <div class="upload-button" id="upload-button">
                                     <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-upload.svg'); ?>" />
                                     <?= __('Upload Video') ?>
@@ -124,6 +125,17 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
             $('#live').hide();
             $('.video_display').hide();
             $('#video').trigger('click');
+            $('.error').hide();
+        });
+        $('#remove').on('click', function() {
+            $('#filename').text('');
+            $('#video').val(null);
+            $('#upload-button').show();
+            $(".video_display").hide();
+            $(this).hide();
+            var video = document.getElementById('recording');
+            video.pause();
+            $('#blob').val('');
         });
         var recordButton, stopButton, recorder, liveStream;
     		recordButton = document.getElementById('record');
@@ -151,18 +163,20 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
       					$("#upload-file-btn").hide();
       					$("#record").hide();
       					$("#stop").show();
+                $("#filename").hide().text('');
+                $('#video').val(null);
                 $('#upload-button').hide();
       					recorder.start();
                 $('#submit').hide();
+                $('.error').hide();
     				});
     		}
     		function stopRecording() {
       			recorder.stop();
       			$("#record").show();
       			$("#stop").hide();
-      			$('#remove-recorded-video-btn').show();
+      			$('#remove').show();
       			$('#upload-file-btn').hide();
-            $('#upload-button').show();
             $('#submit').show();
     		}
     		function onRecordingReady(e) {
@@ -173,6 +187,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
             $(".live_video").hide();
             blob_data = e.data;
             $('#blob').val(1);
+            $('#remove').show();
     		}
     });
 </script>

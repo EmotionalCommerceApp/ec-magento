@@ -74,6 +74,9 @@
     vertical-align: text-top;
     margin-right: 5px;
 }
+#remove {
+    background: #ff0000;
+}
 @media (max-width: 767px) {
     .modal-popup.modal-slide {
         left: auto;
