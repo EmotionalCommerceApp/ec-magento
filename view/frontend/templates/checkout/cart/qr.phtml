@@ -127,6 +127,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
       					$("#stop").show();
                 $('#upload-button').hide();
       					recorder.start();
+                $('#submit').hide();
     				});
     		}
     		function stopRecording() {
@@ -136,6 +137,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
       			$('#remove-recorded-video-btn').show();
       			$('#upload-file-btn').hide();
             $('#upload-button').show();
+            $('#submit').show();
     		}
     		function onRecordingReady(e) {
             var video = document.getElementById('recording');
