@@ -88,7 +88,21 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
         });
         $('#submit').on('click', function (e){
             $('body').trigger('processStart');
-            if ($('#video').get(0).files.length !== 0 || $('#blob').val() != '') {
+            if ($('#blob').val() == 1) {
+              var data = new FormData();
+              data.append('file', blob_data, 'file.webm');
+              $.ajax({
+                  url :  "<?php echo $this->getUrl('ecqr/index/upload'); ?>",
+                  type: 'POST',
+                  data: data,
+                  contentType: false,
+                  processData: false,
+                  success: function(data) {
+                      $('#blob').val(data.name);
+                      $('#ecForm').submit();
+                  }
+              });
+            } else if ($('#video').get(0).files.length !== 0) {
                 $('#ecForm').submit();
             } else {
                 $('.error').show();
@@ -151,13 +165,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
             $(".video_display").show();
             $(".live_video").hide();
             blob_data = e.data;
-            console.debug(blob_data);
-            var reader = new FileReader();
-            reader.readAsDataURL(blob_data);
-            reader.onloadend = function() {
-               var base64data = reader.result;
-               $('#blob').val(base64data);
-            }
+            $('#blob').val(1);
     		}
     });
 </script>
