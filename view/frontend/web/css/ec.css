@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+#qr-modal-content {
+    display: none;
+}
 .modal-popup {
     font-family: 'Roboto';
     font-weight: 400;
@@ -70,6 +73,9 @@
     height: 16px;
     vertical-align: text-top;
     margin-right: 5px;
+}
+#remove {
+    background: #ff0000;
 }
 @media (max-width: 767px) {
     .modal-popup.modal-slide {

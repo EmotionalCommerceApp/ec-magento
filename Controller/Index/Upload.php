@@ -5,7 +5,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
 
-class Post extends \Magento\Framework\App\Action\Action
+class Upload extends \Magento\Framework\App\Action\Action
 {
     /**
      * Show Contact Us page
@@ -29,6 +29,8 @@ class Post extends \Magento\Framework\App\Action\Action
 
     protected $checkoutSession;
 
+    protected $resultJsonFactory;
+
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\ObjectManagerInterface $objectManager,
@@ -37,7 +39,8 @@ class Post extends \Magento\Framework\App\Action\Action
         \Ec\Qr\Helper\Api $apiHelper,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Checkout\Model\Cart $cart,
-        \Magento\Checkout\Model\Session $checkoutSession
+        \Magento\Checkout\Model\Session $checkoutSession,
+        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
     ) {
         $this->_objectManager = $objectManager;
         $this->_storeManager = $storeManager;
@@ -47,6 +50,7 @@ class Post extends \Magento\Framework\App\Action\Action
         $this->cart = $cart;
         $this->productRepository = $productRepository;
         $this->checkoutSession = $checkoutSession;
+        $this->resultJsonFactory = $resultJsonFactory;
 
         parent::__construct($context);
     }
@@ -59,41 +63,12 @@ class Post extends \Magento\Framework\App\Action\Action
         $mediapath = $this->_mediaBaseDirectory = rtrim($mediaDir, '/');
         $path = $mediapath . '/ecqr/';
 
-        if (empty($post['blob'])) {
-            $uploader = $this->_fileUploaderFactory->create(['fileId' => 'video']);
-            $uploader->setAllowedExtensions(['mp4', 'mov', 'webm', 'ogg', 'avi', 'mkv']);
-            $uploader->setAllowRenameFiles(true);
-            $result = $uploader->save($path);
-            $qr = $this->apiHelper->validateVideo($result['path'] . $result['file']);
-        } else {
-            $result = ['path' => dirname($post['blob']) . '/', 'file' => basename($post['blob'])];
-            $qr = $this->apiHelper->validateVideo($result['path'] . $result['file']);
-        }
+        $uploader = $this->_fileUploaderFactory->create(['fileId' => 'file']);
+        $uploader->setAllowedExtensions(['mp4', 'mov', 'webm', 'ogg', 'avi', 'mkv']);
+        $uploader->setAllowRenameFiles(true);
+        $result = $uploader->save($path);
 
-        if (!$qr['success']) {
-            $this->messageManager->addError(__('An Error has occurred please try again later.'));
-            return $this->getResponse()->setRedirect('/checkout/cart/index');
-        }
-
-        try {
-            $_product = $this->productRepository->get('ec-qr-product');
-
-            $this->cart->addProduct($_product, ['qty' => 1]);
-
-            $this->cart->save();
-
-            $this->checkoutSession->setData('ec_qr', $result['path'] . $result['file']);
-
-            $this->messageManager->addSuccess(__('Video Uploaded Successfully'));
-        } catch (\Magento\Framework\Exception\LocalizedException $e) {
-            $this->messageManager->addException(
-                $e,
-                __('%1', $e->getMessage())
-            );
-        } catch (\Exception $e) {
-            $this->messageManager->addException($e, __('An Error has occurred please try again later.'));
-        }
-
-        $this->getResponse()->setRedirect('/checkout/cart/index');
+        $resultJson = $this->resultJsonFactory->create();
+        return $resultJson->setData(['name' => $result['path'] . $result['file']]);
     }
 }
