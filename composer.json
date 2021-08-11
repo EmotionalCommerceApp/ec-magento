@@ -1,12 +1,12 @@
 {
-    "name": "joey-hidevmobile/emotionalcommerce-magento",
+    "name": "EmotionalCommerceApp/ec-magento",
 	"description": "A module that allows the customer to upload a video on the cart page as an emotional messages",
     "require": {
         "php": "~7.1.0|~7.2.0|~7.3.0|~7.4.0",
 		"magento/framework": "101.0.*|102.0.*|103.0.*"
     },
 	"type": "magento2-module",
-	"version": "1.6.0",
+	"version": "1.6.1",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
