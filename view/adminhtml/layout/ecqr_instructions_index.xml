@@ -4,11 +4,11 @@
         <title>
             Emotional Commerce
         </title>
-        <css src="Ec_Qr::css/ec.css"/>
+        <css src="EmotionalCommerceApp_Qr::css/ec.css"/>
     </head>
     <body>
         <referenceContainer name="content">
-            <block class="Ec\Qr\Block\Adminhtml\Config" template="Ec_Qr::instructions/index.phtml"/>
+            <block class="EmotionalCommerceApp\Qr\Block\Adminhtml\Config" template="EmotionalCommerceApp_Qr::instructions/index.phtml"/>
         </referenceContainer>
     </body>
 </page>

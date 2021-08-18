@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Block\Adminhtml;
+namespace EmotionalCommerceApp\Qr\Block\Adminhtml;
 
 /**
  * Block for the images upload form
@@ -51,8 +51,8 @@ class Config extends \Magento\Backend\Block\Template
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Framework\Session\SessionManagerInterface $coreSession,
-        \Ec\Qr\Model\ConfigFactory $configFactory,
-        \Ec\Qr\Helper\Api $apiHelper,
+        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory,
+        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper,
         \Magento\Cms\Model\PageFactory $pageFactory
     ) {
         $this->context = $context;

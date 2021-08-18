@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Controller\Index;
+namespace EmotionalCommerceApp\Qr\Controller\Index;
 
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -34,7 +34,7 @@ class Post extends \Magento\Framework\App\Action\Action
         \Magento\Framework\ObjectManagerInterface $objectManager,
         StoreManagerInterface $storeManager,\Magento\Framework\Filesystem $filesystem,
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
-        \Ec\Qr\Helper\Api $apiHelper,
+        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Checkout\Model\Cart $cart,
         \Magento\Checkout\Model\Session $checkoutSession

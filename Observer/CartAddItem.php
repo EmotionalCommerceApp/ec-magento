@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Observer;
+namespace EmotionalCommerceApp\Qr\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
@@ -14,8 +14,8 @@ class CartAddItem implements ObserverInterface
 
     public function __construct(
         \Magento\Checkout\Model\Session $checkoutSession,
-        \Ec\Qr\Model\EcOrderFactory $ecOrder,
-        \Ec\Qr\Helper\Api $apiHelper,
+        \EmotionalCommerceApp\Qr\Model\EcOrderFactory $ecOrder,
+        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper,
         \Magento\Framework\Message\ManagerInterface $messageManager
     ){
         $this->checkoutSession = $checkoutSession;

@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Block\Adminhtml\Order\View;
+namespace EmotionalCommerceApp\Qr\Block\Adminhtml\Order\View;
 
 class Buttons extends \Magento\Sales\Block\Adminhtml\Order\View
 {

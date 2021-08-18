@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Controller\Adminhtml\Config;
+namespace EmotionalCommerceApp\Qr\Controller\Adminhtml\Config;
 
 class Install extends \Magento\Backend\App\Action
 {
@@ -33,7 +33,7 @@ class Install extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Ec\Qr\Model\ConfigFactory $configFactory
+        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory
     ) {
         parent::__construct($context);
 

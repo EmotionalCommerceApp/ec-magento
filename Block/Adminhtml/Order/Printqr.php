@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Block\Adminhtml\Order;
+namespace EmotionalCommerceApp\Qr\Block\Adminhtml\Order;
 
 /**
  * Block for the images upload form
@@ -15,7 +15,7 @@ class Printqr extends \Magento\Backend\Block\Template
     protected $context;
 
     /**
-     * @var \Ec\Qr\Model\EcOrder
+     * @var \EmotionalCommerceApp\Qr\Model\EcOrder
      */
     protected $ecOrderFactory;
 
@@ -25,9 +25,9 @@ class Printqr extends \Magento\Backend\Block\Template
 
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Ec\Qr\Model\EcOrderFactory $ecOrderFactory,
+        \EmotionalCommerceApp\Qr\Model\EcOrderFactory $ecOrderFactory,
         \Magento\Framework\App\RequestInterface $request,
-        \Ec\Qr\Helper\Api $apiHelper
+        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper
     ) {
         $this->context = $context;
         $this->ecOrderFactory = $ecOrderFactory;

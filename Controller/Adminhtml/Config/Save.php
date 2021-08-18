@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Controller\Adminhtml\Config;
+namespace EmotionalCommerceApp\Qr\Controller\Adminhtml\Config;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -44,7 +44,7 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Ec\Qr\Model\ConfigFactory $configFactory,
+        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Framework\Filesystem\Io\File $file,
@@ -77,7 +77,7 @@ class Save extends \Magento\Backend\App\Action
                 $newFileName = $tmpDir . 'product-image.jpg';
                 $img = $this->moduleReader->getModuleDir(
                     \Magento\Framework\Module\Dir::MODULE_VIEW_DIR,
-                    'Ec_Qr'
+                    'EmotionalCommerceApp_Qr'
                 ) . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'product-image.jpg';
                 $this->file->read($img, $newFileName);
 

@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Model;
+namespace EmotionalCommerceApp\Qr\Model;
 
 use Magento\Framework\DataObject\IdentityInterface;
 
@@ -36,7 +36,7 @@ class Config  extends \Magento\Framework\Model\AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('Ec\Qr\Model\ResourceModel\Config');
+        $this->_init('EmotionalCommerceApp\Qr\Model\ResourceModel\Config');
     }
 
     /**

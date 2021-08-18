@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Model\ResourceModel;
+namespace EmotionalCommerceApp\Qr\Model\ResourceModel;
 
 class EcOrder extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {

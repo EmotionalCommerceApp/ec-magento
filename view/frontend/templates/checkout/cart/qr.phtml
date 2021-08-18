@@ -3,7 +3,7 @@ $config = $this->getConfig();
 if ($config['campaign'] && $this->canShow() && $config['enabled']):
 ?>
 <div class="main-qr-button-wrapper">
-    <img class="main-button-icon" src="<?php echo $this->getViewFileUrl('Ec_Qr::images/icon-video.svg'); ?>" />
+    <img class="main-button-icon" src="<?php echo $this->getViewFileUrl('EmotionalCommerceApp_Qr::images/icon-video.svg'); ?>" />
     <button type="button" id="qr-modal-btn" class="action primary checkout"
             style="
                 <?php if ($config['button-background']){echo 'background-color: '. $config['button-background'] .';border-color:'.$config['button-background'].';';} ?>
@@ -19,7 +19,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
             <form method="POST" id="ecForm" enctype="multipart/form-data" action="<?php echo $this->getUrl('ecqr/index/post'); ?>" data-hasrequired="<?php echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
                 <div class="form-wrapper">
                     <div class="image-wrapper">
-                        <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-image.png'); ?>" />
+                        <img src="<?php echo $this->getViewFileUrl('EmotionalCommerceApp_Qr::images/popup-image.png'); ?>" />
                     </div>
                     <p class="modal-text">
                         <?= nl2br($config['subtitle']) ?>
@@ -38,11 +38,11 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                             </div>
                             <div class="control modal-text">
                                 <div class="upload-button" id="record">
-                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
+                                    <img src="<?php echo $this->getViewFileUrl('EmotionalCommerceApp_Qr::images/popup-record.svg'); ?>" />
                                     <?= __('Record Video') ?>
                                 </div>
                                 <div class="upload-button" id="stop">
-                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-record.svg'); ?>" />
+                                    <img src="<?php echo $this->getViewFileUrl('EmotionalCommerceApp_Qr::images/popup-record.svg'); ?>" />
                                     <?= __('Stop Recording') ?>
                                 </div>
                                 <div class="upload-button" id="remove" style="display:none;">
@@ -50,7 +50,7 @@ if ($config['campaign'] && $this->canShow() && $config['enabled']):
                                 </div>
                                 <span class="mymodal-recording-tag" id="filename" style="display:none;"></span>
                                 <div class="upload-button" id="upload-button">
-                                    <img src="<?php echo $this->getViewFileUrl('Ec_Qr::images/popup-upload.svg'); ?>" />
+                                    <img src="<?php echo $this->getViewFileUrl('EmotionalCommerceApp_Qr::images/popup-upload.svg'); ?>" />
                                     <?= __('Upload Video') ?>
                                 </div>
                                 <input id="blob" name="blob" type="hidden" />

@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Setup;
+namespace EmotionalCommerceApp\Qr\Setup;
 
 class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Model\ResourceModel\Config;
+namespace EmotionalCommerceApp\Qr\Model\ResourceModel\Config;
 
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
@@ -16,8 +16,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected function _construct()
     {
         $this->_init(
-            'Ec\Qr\Model\Config',
-            'Ec\Qr\Model\ResourceModel\Config'
+            'EmotionalCommerceApp\Qr\Model\Config',
+            'EmotionalCommerceApp\Qr\Model\ResourceModel\Config'
         );
     }
 

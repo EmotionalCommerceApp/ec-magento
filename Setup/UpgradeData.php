@@ -1,6 +1,6 @@
 <?php
 
-namespace Ec\Qr\Setup;
+namespace EmotionalCommerceApp\Qr\Setup;
 
 use Magento\Cms\Model\PageFactory;
 use Magento\Eav\Setup\EavSetupFactory;

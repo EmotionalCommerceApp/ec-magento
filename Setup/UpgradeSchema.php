@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Setup;
+namespace EmotionalCommerceApp\Qr\Setup;
 
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;

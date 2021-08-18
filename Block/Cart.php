@@ -1,6 +1,6 @@
 <?php
 
-namespace Ec\Qr\Block;
+namespace EmotionalCommerceApp\Qr\Block;
 
 class Cart extends \Magento\Framework\View\Element\Template
 {
@@ -8,7 +8,7 @@ class Cart extends \Magento\Framework\View\Element\Template
     /**
      * apiHelper
      *
-     * @var \Ec\Qr\Helper\Api
+     * @var \EmotionalCommerceApp\Qr\Helper\Api
      */
     protected $apiHelper;
     protected $checkoutSession;
@@ -16,7 +16,7 @@ class Cart extends \Magento\Framework\View\Element\Template
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Ec\Qr\Helper\Api $apiHelper,
+        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Checkout\Helper\Cart $cartHelper,
         array $data = []

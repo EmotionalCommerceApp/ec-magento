@@ -1,5 +1,5 @@
 <?php
-namespace Ec\Qr\Helper;
+namespace EmotionalCommerceApp\Qr\Helper;
 
 use \Magento\Framework\App\Helper\AbstractHelper;
 
@@ -11,12 +11,12 @@ class Api extends AbstractHelper
     /**
      * ConfigFactory
      *
-     * @var \Ec\Qr\Model\ConfigFactory
+     * @var \EmotionalCommerceApp\Qr\Model\ConfigFactory
      */
     protected $configFactory;
 
     public function __construct(
-        \Ec\Qr\Model\ConfigFactory $configFactory
+        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory
     ) {
         $this->configFactory = $configFactory;
     }
