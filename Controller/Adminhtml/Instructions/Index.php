@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Controller\Adminhtml\Instructions;
+namespace Ec\Qr\Controller\Adminhtml\Instructions;
 
 /**
  * Controller class for the images upload form
@@ -7,8 +7,8 @@ namespace EmotionalCommerceApp\Qr\Controller\Adminhtml\Instructions;
 class Index extends \Magento\Backend\App\Action
 {
     /**
-    * @var \Magento\Framework\View\Result\PageFactory
-    */
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -33,7 +33,6 @@ class Index extends \Magento\Backend\App\Action
 
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('EmotionalCommerceApp_Qr::instructions_child_admin');
+        return $this->_authorization->isAllowed('Ec_Qr::instructions_child_admin');
     }
-
 }

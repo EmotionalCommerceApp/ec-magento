@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Observer;
+namespace Ec\Qr\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
@@ -10,8 +10,8 @@ class UpdatePrice implements ObserverInterface
     protected $configFactory;
 
     public function __construct(
-        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory
-    ){
+        \Ec\Qr\Model\ConfigFactory $configFactory
+    ) {
         $this->configFactory = $configFactory;
     }
 

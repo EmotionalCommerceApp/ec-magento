@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Block\Adminhtml;
+namespace Ec\Qr\Block\Adminhtml;
 
 /**
  * Block for the images upload form
@@ -51,8 +51,8 @@ class Config extends \Magento\Backend\Block\Template
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Framework\Session\SessionManagerInterface $coreSession,
-        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory,
-        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper,
+        \Ec\Qr\Model\ConfigFactory $configFactory,
+        \Ec\Qr\Helper\Api $apiHelper,
         \Magento\Cms\Model\PageFactory $pageFactory
     ) {
         $this->context = $context;
@@ -88,8 +88,6 @@ class Config extends \Magento\Backend\Block\Template
 
         return $url->getUrl('ecqr/config/install');
     }
-
-
     /**
      * Generates and returns a form key
      *
@@ -99,7 +97,6 @@ class Config extends \Magento\Backend\Block\Template
     {
          return $this->formKey->getFormKey();
     }
-
     public function getConfig()
     {
           $configFactory = $this->configFactory->create();
@@ -122,7 +119,6 @@ class Config extends \Magento\Backend\Block\Template
               'enabled' => 0,
               'qr-title' => __('Scan the QR to see the <br /> Emotional Message'),
           ];
-
           foreach ($collection as $config) {
               $configData[$config->getName()] = $config->getValue();
           }
@@ -146,5 +142,4 @@ class Config extends \Magento\Backend\Block\Template
         $page = $this->pageFactory->create();
         return $page->getCollection();
     }
-
 }

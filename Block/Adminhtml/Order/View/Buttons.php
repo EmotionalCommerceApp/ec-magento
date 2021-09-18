@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Block\Adminhtml\Order\View;
+namespace Ec\Qr\Block\Adminhtml\Order\View;
 
 class Buttons extends \Magento\Sales\Block\Adminhtml\Order\View
 {
@@ -8,7 +8,7 @@ class Buttons extends \Magento\Sales\Block\Adminhtml\Order\View
     {
         parent::_construct();
 
-        if(!$this->getOrderId()) {
+        if (!$this->getOrderId()) {
             return $this;
         }
 
@@ -24,5 +24,4 @@ class Buttons extends \Magento\Sales\Block\Adminhtml\Order\View
 
         return $this;
     }
-
 }

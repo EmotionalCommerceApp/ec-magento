@@ -1,12 +1,12 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Controller\Adminhtml\Config;
+namespace Ec\Qr\Controller\Adminhtml\Config;
 
 class Save extends \Magento\Backend\App\Action
 {
 
     /**
-    * @var \Magento\Framework\View\Result\PageFactory
-    */
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -44,7 +44,7 @@ class Save extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory,
+        \Ec\Qr\Model\ConfigFactory $configFactory,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Framework\Filesystem\Io\File $file,
@@ -71,13 +71,13 @@ class Save extends \Magento\Backend\App\Action
             $ecProduct = $this->productRepository->get('ec-qr-product');
             $ecProduct->setPrice($post['price']);
 
-            if($ecProduct->getData('image') === 'no_selection' || !$ecProduct->getData('image')) {
+            if ($ecProduct->getData('image') === 'no_selection' || !$ecProduct->getData('image')) {
                 $tmpDir = $this->getMediaDirTmpDir();
                 $this->file->checkAndCreateFolder($tmpDir);
                 $newFileName = $tmpDir . 'product-image.jpg';
                 $img = $this->moduleReader->getModuleDir(
                     \Magento\Framework\Module\Dir::MODULE_VIEW_DIR,
-                    'EmotionalCommerceApp_Qr'
+                    'Ec_Qr'
                 ) . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'product-image.jpg';
                 $this->file->read($img, $newFileName);
 
@@ -109,7 +109,7 @@ class Save extends \Magento\Backend\App\Action
         }
 
 
-        foreach($post as $key => $config) {
+        foreach ($post as $key => $config) {
             $configModel = $this->configFactory->create();
             $configModel->setData(
                 [
@@ -131,5 +131,4 @@ class Save extends \Magento\Backend\App\Action
     {
         return $this->directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA) . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
     }
-
 }

@@ -1,6 +1,5 @@
 <?php
-
-namespace EmotionalCommerceApp\Qr\Setup;
+namespace Ec\Qr\Setup;
 
 use Magento\Cms\Model\PageFactory;
 use Magento\Eav\Setup\EavSetupFactory;
@@ -81,9 +80,7 @@ class UpgradeData implements UpgradeDataInterface
         $categorySetup = $this->categorySetupFactory->create(['setup' => $setup]);
 
         if (version_compare($context->getVersion(), '1.0.0') < 0) {
-            $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
             $attributeSetId = $categorySetup->getDefaultAttributeSetId(\Magento\Catalog\Model\Product::ENTITY);
-
             $this->product->setSku('ec-qr-product');
             $this->product->setName('Emotional Commerce Video');
             $this->product->setUrlKey('ec-qr-product');
@@ -94,7 +91,6 @@ class UpgradeData implements UpgradeDataInterface
             $this->product->setTypeId('virtual');
             $this->product->setPrice(0);
             $this->product->setWebsiteIds([1]);
-
             $this->product->setStockData(
                 [
                     'use_config_manage_stock' => 0,
@@ -103,8 +99,6 @@ class UpgradeData implements UpgradeDataInterface
             );
 
             $this->product->save();
-        }
-        if (version_compare($context->getVersion(), '1.0.1') < 0) {
         }
     }
 }

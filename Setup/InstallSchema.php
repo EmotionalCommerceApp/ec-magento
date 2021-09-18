@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Setup;
+namespace Ec\Qr\Setup;
 
 class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
 {
@@ -10,8 +10,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
     ) {
         $installer = $setup;
         $installer->startSetup();
-        if (!$installer->tableExists('ec_qr_configuration'))
-        {
+        if (!$installer->tableExists('ec_qr_configuration')) {
             $table = $installer->getConnection()->newTable(
                 $installer->getTable('ec_qr_configuration')
             )
@@ -52,7 +51,8 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
                 null,
                 ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
-                'Updated At')
+                'Updated At'
+            )
             ->setComment('EC QR');
             $installer->getConnection()->createTable($table);
         }

@@ -1,52 +1,13 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Model;
-
-use Magento\Framework\DataObject\IdentityInterface;
+namespace Ec\Qr\Model;
 
 /**
  * Filters info model
-*/
-class Config  extends \Magento\Framework\Model\AbstractModel
-    implements  IdentityInterface
+ */
+class Config extends \Magento\Framework\Model\AbstractModel
 {
-
-    /**#@-*/
-
-    /**
-     * CMS page cache tag
-     */
-    const CACHE_TAG = 'ecqr_config';
-
-    /**
-     * @var string
-     */
-    protected $_cacheTag = 'ecqr_config';
-
-    /**
-     * Prefix of model events names
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'ecqr_config';
-
-    /**
-     * Initialize resource model
-     *
-     * @return void
-     */
     protected function _construct()
     {
-        $this->_init('EmotionalCommerceApp\Qr\Model\ResourceModel\Config');
+        $this->_init('Ec\Qr\Model\ResourceModel\Config');
     }
-
-    /**
-     * Return unique ID(s) for each object in system
-     *
-     * @return string[]
-     */
-    public function getIdentities()
-    {
-        return [self::CACHE_TAG . '_' . $this->getId()];
-    }
-
 }

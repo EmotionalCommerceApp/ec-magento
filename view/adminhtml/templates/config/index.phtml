@@ -1,11 +1,11 @@
 <div class="ec-form">
 <?php
-$config = $this->getConfig();
+$config = $block->getConfig();
 
 if (!$config['key'] || !$config['secret'] || !$config['domain']):
     ?>
-    <form action="<?= $this->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
-        <?php echo $this->getBlockHtml('formkey') ?>
+    <form action="<?= $block->getInstallActionUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $block->getBlockHtml('formkey') ?>
         <p>
             <label for="key">Key<span class="red">*</span></label>
             <input name="key" type="text" placeholder="Key" value="<?= $config['key'] ?>" required/>
@@ -22,12 +22,12 @@ if (!$config['key'] || !$config['secret'] || !$config['domain']):
 
         <input type="submit" value="Save"/>
     </form>
-<?php
+    <?php
 else:
-    $campaigns = $this->getCampaigns($config['key'], $config['secret'], $config['domain']);
+    $campaigns = $block->getCampaigns($config['key'], $config['secret'], $config['domain']);
     ?>
-    <form action="<?= $this->getActionUrl() ?>" method="post" enctype="multipart/form-data">
-        <?php echo $this->getBlockHtml('formkey') ?>
+    <form action="<?= $block->getActionUrl() ?>" method="post" enctype="multipart/form-data">
+        <?php echo $block->getBlockHtml('formkey') ?>
         <div data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'>
             <div data-role="collapsible">
                 <div class="col-title" data-role="trigger">
@@ -52,7 +52,7 @@ else:
             <?php
             if (!$campaigns): echo '<p class="danger">Something went wrong, please make sure you have the correct api key, secret, and domain.</p>';
             else:
-            ?>
+                ?>
             <div data-role="collapsible">
                 <div class="col-title"  data-role="trigger">
                     Configuration
@@ -146,7 +146,7 @@ else:
         <?php endif ?>
         <input id="submit" type="submit" value="Save"/>
     </form>
-<?php
+    <?php
 endif
 ?>
 </div>

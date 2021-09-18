@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Setup;
+namespace Ec\Qr\Setup;
 
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -7,14 +7,14 @@ use Magento\Framework\Setup\ModuleContextInterface;
 
 class UpgradeSchema implements UpgradeSchemaInterface
 {
-    public function upgrade( SchemaSetupInterface $setup, ModuleContextInterface $context ) {
+    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    {
         $installer = $setup;
 
         $installer->startSetup();
 
-        if(version_compare($context->getVersion(), '1.0.2', '<')) {
-            if (!$installer->tableExists('ec_qr_order'))
-            {
+        if (version_compare($context->getVersion(), '1.0.2', '<')) {
+            if (!$installer->tableExists('ec_qr_order')) {
                 $table = $installer->getConnection()->newTable(
                     $installer->getTable('ec_qr_order')
                 )
@@ -69,7 +69,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
             }
         }
 
-        if(version_compare($context->getVersion(), '1.0.3', '<')) {
+        if (version_compare($context->getVersion(), '1.0.3', '<')) {
             if ($installer->tableExists('ec_qr_order')) {
                 $installer->getConnection()->addColumn(
                     $installer->getTable('ec_qr_order'),
@@ -83,13 +83,13 @@ class UpgradeSchema implements UpgradeSchemaInterface
             }
         }
 
-        if(version_compare($context->getVersion(), '1.0.4', '<')) {
+        if (version_compare($context->getVersion(), '1.0.7', '<')) {
             if ($installer->tableExists('ec_qr_configuration')) {
                 $installer->getConnection()->changeColumn(
-                      $installer->getTable('ec_qr_configuration'),
-                      'value',
-                      'value',
-                      [
+                    $installer->getTable('ec_qr_configuration'),
+                    'value',
+                    'value',
+                    [
                           'type'     => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                           'length'   => '2M',
                       ]

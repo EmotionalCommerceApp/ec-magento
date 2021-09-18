@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Controller\Index;
+namespace Ec\Qr\Controller\Index;
 
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -34,9 +34,10 @@ class Upload extends \Magento\Framework\App\Action\Action
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        StoreManagerInterface $storeManager,\Magento\Framework\Filesystem $filesystem,
+        StoreManagerInterface $storeManager,
+        \Magento\Framework\Filesystem $filesystem,
         \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory,
-        \EmotionalCommerceApp\Qr\Helper\Api $apiHelper,
+        \Ec\Qr\Helper\Api $apiHelper,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Magento\Checkout\Model\Cart $cart,
         \Magento\Checkout\Model\Session $checkoutSession,

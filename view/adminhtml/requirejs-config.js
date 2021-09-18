@@ -1,6 +1,6 @@
 var config = {
     paths: {
-        'spectrum': 'EmotionalCommerceApp_Qr/js/spectrum'
+        'spectrum': 'Ec_Qr/js/spectrum'
     },
     shim: {
         'spectrum': {

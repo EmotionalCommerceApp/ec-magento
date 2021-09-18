@@ -1,5 +1,5 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Helper;
+namespace Ec\Qr\Helper;
 
 use \Magento\Framework\App\Helper\AbstractHelper;
 
@@ -16,19 +16,19 @@ class Api extends AbstractHelper
     protected $configFactory;
 
     public function __construct(
-        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory
+        \Ec\Qr\Model\ConfigFactory $configFactory
     ) {
         $this->configFactory = $configFactory;
     }
 
     public function getCampaigns($key, $secret, $domain)
     {
-        $headers =  array(
+        $headers =  [
           'Accept: application/json',
           'Content-Type: application/json',
           'key: '.$key,
           'secret: '.$secret,
-        );
+        ];
 
         $regUrl = $domain. '.' . self::API_URL."/api/campaigns";
 
@@ -36,9 +36,9 @@ class Api extends AbstractHelper
         curl_setopt($regCurl, CURLOPT_POST, 0);
         curl_setopt($regCurl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt(
-          $regCurl,
-          CURLOPT_HTTPHEADER,
-          $headers
+            $regCurl,
+            CURLOPT_HTTPHEADER,
+            $headers
         );
         $regResult = json_decode(curl_exec($regCurl));
         $statusCode = curl_getinfo($regCurl, CURLINFO_HTTP_CODE);
@@ -84,7 +84,6 @@ class Api extends AbstractHelper
             'success' => true,
             'data' => $campaigns,
         ];
-
     }
 
     public function getConfig()
@@ -121,29 +120,29 @@ class Api extends AbstractHelper
     {
         $config = $this->getConfig();
 
-        $headers =  array(
+        $headers =  [
             'Accept: application/json',
             'content-type: multipart/form-data',
             'key: '.$config['key'],
             'secret: '.$config['secret'],
-        );
+        ];
 
         $regUrl = $config['domain']. '.' . self::API_URL."/api/campaigns/video";
 
          $data = [
             'campaign' => $config['campaign'],
             'file' => curl_file_create($filePath),
-        ];
+         ];
 
-        $regCurl = curl_init($regUrl);
-        curl_setopt($regCurl, CURLOPT_POST, 1);
-        curl_setopt($regCurl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($regCurl, CURLOPT_POSTFIELDS, $data);
-        curl_setopt(
-            $regCurl,
-            CURLOPT_HTTPHEADER,
-            $headers
-        );
+         $regCurl = curl_init($regUrl);
+         curl_setopt($regCurl, CURLOPT_POST, 1);
+         curl_setopt($regCurl, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($regCurl, CURLOPT_POSTFIELDS, $data);
+         curl_setopt(
+             $regCurl,
+             CURLOPT_HTTPHEADER,
+             $headers
+         );
         $regResult = json_decode(curl_exec($regCurl));
         $statusCode = curl_getinfo($regCurl, CURLINFO_HTTP_CODE);
         curl_close($regCurl);
@@ -162,19 +161,18 @@ class Api extends AbstractHelper
                 'qr' => $regResult->qr,
             ],
         ];
-
     }
 
     public function validateVideo($filePath)
     {
         $config = $this->getConfig();
 
-        $headers =  array(
+        $headers =  [
             'Accept: application/json',
             'content-type: multipart/form-data',
             'key: '.$config['key'],
             'secret: '.$config['secret'],
-        );
+        ];
 
         $regUrl = $config['domain']. '.' . self::API_URL."/api/campaigns/video/verify";
 
@@ -206,19 +204,18 @@ class Api extends AbstractHelper
         return [
             'success' => true,
         ];
-
     }
 
     public function createEvent($ecOrder)
     {
         $config = $this->getConfig();
 
-        $headers =  array(
+        $headers =  [
             'Accept: application/json',
             'content-type: multipart/form-data',
             'key: '.$config['key'],
             'secret: '.$config['secret'],
-        );
+        ];
 
         $slug = $ecOrder->getUrl();
         $slug = explode('/', $slug);
@@ -260,5 +257,4 @@ class Api extends AbstractHelper
             'success' => true,
         ];
     }
-
 }

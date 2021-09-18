@@ -4,10 +4,10 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
-                    <resource id="EmotionalCommerceApp_Qr::config" title="Emotional Commerce" sortOrder="10" >
-                        <resource id="EmotionalCommerceApp_Qr::config_child" title="Configuration" sortOrder="40">
-                            <resource id="EmotionalCommerceApp_Qr::config_child_admin" title="Configuration" sortOrder="40" />
-                            <resource id="EmotionalCommerceApp_Qr::instructions_child_admin" title="Instructions" sortOrder="50" />
+                    <resource id="Ec_Qr::config" title="Emotional Commerce" sortOrder="10" >
+                        <resource id="Ec_Qr::config_child" title="Configuration" sortOrder="40">
+                            <resource id="Ec_Qr::config_child_admin" title="Configuration" sortOrder="40" />
+                            <resource id="Ec_Qr::instructions_child_admin" title="Instructions" sortOrder="50" />
                         </resource>
                     </resource>
                 </resource>

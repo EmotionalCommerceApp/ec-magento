@@ -1,12 +1,12 @@
 <?php
-namespace EmotionalCommerceApp\Qr\Controller\Adminhtml\Config;
+namespace Ec\Qr\Controller\Adminhtml\Config;
 
 class Install extends \Magento\Backend\App\Action
 {
 
     /**
-    * @var \Magento\Framework\View\Result\PageFactory
-    */
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -33,7 +33,7 @@ class Install extends \Magento\Backend\App\Action
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        \EmotionalCommerceApp\Qr\Model\ConfigFactory $configFactory
+        \Ec\Qr\Model\ConfigFactory $configFactory
     ) {
         parent::__construct($context);
 
@@ -82,12 +82,11 @@ class Install extends \Magento\Backend\App\Action
             ]
         );
         $domainModel->save();
-
+            
         $resultRedirect = $this->resultRedirectFactory->create();
         $url = $this->_url->getUrl('ecqr/config');
 
         $this->messageManager->addSuccess(__("Module Installed"));
         return $resultRedirect->setPath($url);
     }
-
 }
